@@ -1,56 +1,112 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure~\ref{fig:rc} is analysed
-theoretically, in terms of its time and frequency responses.
+In this section, the circuit shown in Figure ??? is analysed
+theoretically, using both the mesh and the nodal methods.
 
-\section{Time response}
 
-The circuit consists of a single V-R-C loop where a current $i(t)$ circulates. The
-voltage source $v_I(t)$ drives its input, and the output voltage $v_O(t)$ is taken from
-the capacitor terminals. Applying the Kirchhoff Voltage Law (KVL), a single
-equation for the single loop in the circuit can be written as
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%% Mesh Method
+\subsection{Mesh method}
 
+The 4 meshes used for this method are identified in Figure ???, as well as the direction chosen for the current assigned to each mesh.
+Using Kirchhoff's Voltage Law (KVL) equations around each mesh the following system was obtained:
 \begin{equation}
-  Ri(t) + v_O(t) = v_I(t).
-  \label{eq:kvl}
+  \begin{cases}
+    \left(A\right): \left(R_{1}+R_{2}+R_{3}\right)I_{A}+R_{3}I_{B}+R_{4}I_{C}=V_{a} \\
+    \left(B\right): -K_{b}R_{3}I_{A}+\left(1-K_{b}R_{3}\right)I_{B}=0               \\
+    \left(C\right): R_{4}I_{1}+\left(R_{4}+R_{6}+R_{7} \right) -K_{c}I_{c}=0        \\
+    \left(D\right): I_{D}=-Id
+  \end{cases}
 \end{equation}
-
-Because $v_O$ is the voltage between capacitor C's plates, it is related to the
-current $i$ by
+For mesh A and C (meshes without current sources) we used Kirchhoff's Voltage Law(KVL) around each mesh (equations (A) and (C)).
+For mesh B and D (meshes with current sources) we used the relations between the current of the current sources and the meshes currents (equations (B) and (D)).
+Using the following equations we can then obtain the currents of each resistor:
 \begin{equation}
-  i(t) = C\frac{dv_O}{dt}.
+  \begin{cases}
+    I_{1}=-I_{A}      \\
+    I_{2}=I_{B}       \\
+    I_{3}=I_{A}+I_{B} \\
+    I_{4}=I_{A}+I_{C} \\
+    I_{5}=I_{B}+I_{D} \\
+    I_{6}=I_{C}       \\
+    I_{7}=I_{C}
+  \end{cases}
 \end{equation}
+The voltages for each node can be directly obtained using Ohm's Law.
 
-Hence, Equation~(\ref{eq:kvl}) can be rewritten as
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [mA]} \\ \hline
+    \input{../mat/opMesh_tab}
+  \end{tabular}
+  \caption{Mesh analysis: values obtained for mesh currents.}
+  \label{tab:op1}
+\end{table}
+
+\begin{table}
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [mA]} \\ \hline
+      \input{../mat/opMeshResCurrents_tab}
+    \end{tabular}
+    \caption{Mesh analysis: values obtained for the currents running through the resistors.}
+  }
+  \hfill
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [mA]} \\ \hline
+      \input{../mat/opMeshResVoltages_tab}
+    \end{tabular}
+    \caption{Mesh analysis: values obtained for the voltage drops across resistors.}
+  }
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%% Nodal Method
+
+\subsection{Nodal method}
+
+Applying this method the system obtained was the following:
 \begin{equation}
-  RC\frac{dv_O}{dt} + v_O(t) = v_I.
-  \label{eq:kvl2}
+  \begin{cases}
+    \left(1\right): V_{1}=V_{a}                                                                        \\
+    \left(2\right): -G_{1}V_{1}+\left(G_{1}+G_{2}+G_{3}\right)V_{2}-G_{2}V_{3}-G_{3}V_{4}=0            \\
+    \left(3\right): -\left(G_{2}+K_{b}\right)V_{2}+G_{2}V_{3}+K_{b}V_{4}=0                             \\
+    \left(4\right): V_{4}+K_{c}G_{6}V_{6}-V{7}=0                                                       \\
+    \left(5\right): K_{b}V_{2}-\left(G_{5}+K_{b})V_{4} \right) +G_{5}V_{5}=I_{d}                       \\
+    \left(6\right): \left(G_{6}+G_{7}\right)V_{6}-G_{7}V_{7}=0                                         \\
+    \left(7\right): -G_{3}V_{2}+\left(G_{3}+G_{4}+G_{5}\right)V_{4}-G_{5}V_{5}-G_{7}V_{6}+G_{7}V_{6}=0 \\
+  \end{cases}
 \end{equation}
-
-Equation~(\ref{eq:kvl2}) is a linear differencial equation whose solution is a
-superposition of a natural solution $v_{On}$ and a forced solution $v_{Of}$:
-
-\begin{equation}
-  v_O(t) = v_{On}(t) + v_{Of}(t).
-  \label{eq:vo_sol}
-\end{equation}
-
-As learned in the theory classes the natural solution is of the form
-\begin{equation}
-  v_{On}(t) = Ae^{-\frac{t}{RC}},
-  \label{eq:vo_nat}
-\end{equation}
-where $A$ is an integration constant.
-
-The forced solution is of the form given in Equation~(\ref{eq:vo_for}) and is
-illustrated in [REDACTED].
-
-\begin{equation}
-  V_{Of}(t) = |\bar{V}_{Of}| cos(\omega t + \angle \bar{V}_{Of}),
-  \label{eq:vo_for}
-\end{equation}
-
-\section{Frequency response}
+For this method, Kirchhoff's Current Law (KCL) was aplied directly for node $2$, $3$, $5$ and $6$ (there are no voltage sources connected to this nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources tensions and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-refence nodes (nodes $4$ and $7$), it was required to apply the supernode construct (equation (7)).
+Using the voltages of every node the currents and voltages for each branch can be calculated easily.
 
 
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [mA]} \\ \hline
+    \input{../mat/opNode_tab}
+  \end{tabular}
+  \caption{Node analysis: values obtained for node potentials.}
+  \caption{Node analysis: values obtained for the currents running through the resistors.}
+  \label{tab:op2}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [mA]} \\ \hline
+    \input{../mat/opNodeResCurrents_tab}
+  \end{tabular}
+  \caption{Node analysis: values obtained for the currents running through the resistors.}
+  \label{tab:op3}
+\end{table}

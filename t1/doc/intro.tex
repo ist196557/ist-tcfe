@@ -1,11 +1,18 @@
+\newpage
 \section{Introduction}
 \label{sec:introduction}
 
 % state the learning objective 
-The objective of this laboratory assignment is to study a circuit containing a
-sinusoidal voltage source $V_I$ connected to a resistor $R$ and a capacitor $C$
-in series. The circuit can be seen if Figure~\ref{fig:rc}.
-
+The objective of this laboratory assignment is to study a circuit composed of
+four elementary meshes where these can contain resistors, independent current or voltage sources
+and dependent current or voltage sources as seen in figure
+\ref{fig:rc}.
+In mesh B, we find a current source whose current is proportional to the voltage $V_{b}$
+(voltage controlled current source).
+In mesh C, on the other hand, there is a voltage source that varies proportionally
+with the current $I_c$ (current controlled voltage source).
+The proportionality constants for these two cases are called, respectively,
+transconductance (SI unit: Siemens - S) and transresistance (SI unit: Ohm - $\Omega$).
 In Section~\ref{sec:analysis}, a theoretical analysis of the circuit is
 presented. In Section~\ref{sec:simulation}, the circuit is analysed by
 simulation, and the results are compared to the theoretical results obtained in
@@ -13,8 +20,8 @@ Section~\ref{sec:analysis}. The conclusions of this study are outlined in
 Section~\ref{sec:conclusion}.
 
 \begin{figure}[h] \centering
-\includegraphics[width=0.8\linewidth]{t1.pdf}
-\caption{Voltage driven serial RC circuit.}
-\label{fig:rc}
+    \includegraphics[width=0.9\linewidth]{t1_meshes.pdf}
+    \caption{Circuit analysed.}
+    \label{fig:rc}
 \end{figure}
 
