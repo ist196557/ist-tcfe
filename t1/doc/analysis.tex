@@ -1,16 +1,14 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-In this section, the circuit shown in Figure ??? is analysed
+In this section, the circuit shown in figure \ref{fig:rc} is analysed
 theoretically, using both the mesh and the nodal methods.
 
-
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%% Mesh Method
-\subsection{Mesh method}
 
-The 4 meshes used for this method are identified in Figure ???, as well as the direction chosen for the current assigned to each mesh.
-Using Kirchhoff's Voltage Law (KVL) equations around each mesh the following system was obtained:
+\subsection{Mesh method}
+The 4 meshes used for this method are identified in figure \ref{fig:rc}, as well as the direction chosen for the current assigned to each mesh.
+Using this method the following system was obtained:
 \begin{equation}
   \begin{cases}
     \left(A\right): \left(R_{1}+R_{2}+R_{3}\right)I_{A}+R_{3}I_{B}+R_{4}I_{C}=V_{a} \\
@@ -21,7 +19,7 @@ Using Kirchhoff's Voltage Law (KVL) equations around each mesh the following sys
 \end{equation}
 For mesh A and C (meshes without current sources) we used Kirchhoff's Voltage Law(KVL) around each mesh (equations (A) and (C)).
 For mesh B and D (meshes with current sources) we used the relations between the current of the current sources and the meshes currents (equations (B) and (D)).
-Using the following equations we can then obtain the currents of each resistor:
+Using the following equations we can then find the currents through each resistor:
 \begin{equation}
   \begin{cases}
     I_{1}=-I_{A}      \\
@@ -29,7 +27,7 @@ Using the following equations we can then obtain the currents of each resistor:
     I_{3}=I_{A}+I_{B} \\
     I_{4}=I_{A}+I_{C} \\
     I_{5}=I_{B}+I_{D} \\
-    I_{6}=I_{C}       \\
+    I_{c}=I_{C}       \\
     I_{7}=I_{C}
   \end{cases}
 \end{equation}
@@ -84,9 +82,8 @@ Applying this method the system obtained was the following:
     \left(7\right): -G_{3}V_{2}+\left(G_{3}+G_{4}+G_{5}\right)V_{4}-G_{5}V_{5}-G_{7}V_{6}+G_{7}V_{6}=0 \\
   \end{cases}
 \end{equation}
-For this method, Kirchhoff's Current Law (KCL) was aplied directly for node $2$, $3$, $5$ and $6$ (there are no voltage sources connected to this nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources tensions and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-refence nodes (nodes $4$ and $7$), it was required to apply the supernode construct (equation (7)).
+For this method, Kirchhoff's Current Law (KCL) was aplied directly for node $2$, $3$, $5$ and $6$ (there are no voltage sources connected to these nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-refence nodes (nodes $4$ and $7$), it was required to apply the supernode construct (equation (7)).
 Using the voltages of every node the currents and voltages for each branch can be calculated easily.
-
 
 \begin{table}[h]
   \centering
