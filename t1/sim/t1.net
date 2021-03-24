@@ -37,7 +37,7 @@ print @R4[i]
 print @R5[i]
 print @R6[i]
 print @R7[i]
-
+print @Hc[i]
 echo  "op_END"
 
 quit
