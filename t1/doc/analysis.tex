@@ -1,3 +1,4 @@
+\newpage
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
@@ -5,15 +6,14 @@ In this section, the circuit shown in figure \ref{fig:rc} is analysed
 theoretically, using both the mesh and the nodal methods.
 
 %%%%%%%%%%%%%%%%%%%%%%% Mesh Method
-
 \subsection{Mesh method}
 The 4 meshes used for this method are identified in figure \ref{fig:rc}, as well as the direction chosen for the current assigned to each mesh.
 Using this method the following system was obtained:
 \begin{equation}
   \begin{cases}
-    \left(A\right): \left(R_{1}+R_{2}+R_{3}\right)I_{A}+R_{3}I_{B}+R_{4}I_{C}=V_{a} \\
+    \left(A\right): \left(R_{1}+R_{3}+R_{4}\right)I_{A}+R_{3}I_{B}+R_{4}I_{C}=V_{a} \\
     \left(B\right): -K_{b}R_{3}I_{A}+\left(1-K_{b}R_{3}\right)I_{B}=0               \\
-    \left(C\right): R_{4}I_{1}+\left(R_{4}+R_{6}+R_{7} \right) -K_{c}I_{c}=0        \\
+    \left(C\right): R_{4}I_{A}+\left(R_{4}+R_{6}+R_{7}-K_{c}\right)I_{c}=0        \\
     \left(D\right): I_{D}=-Id
   \end{cases}
 \end{equation}
@@ -32,6 +32,7 @@ Using the following equations we can then find the currents through each resisto
   \end{cases}
 \end{equation}
 The voltages for each node can be directly obtained using Ohm's Law.
+The results obtained are written below.
 
 \begin{table}[h]
   \centering
@@ -44,7 +45,7 @@ The voltages for each node can be directly obtained using Ohm's Law.
   \label{tab:op1}
 \end{table}
 
-\begin{table}
+\begin{table}[h]
   \parbox{.45\linewidth}{
     \centering
     \begin{tabular}{|c|c|}
@@ -67,7 +68,6 @@ The voltages for each node can be directly obtained using Ohm's Law.
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%% Nodal Method
-
 \subsection{Nodal method}
 
 Applying this method the system obtained was the following:
@@ -77,12 +77,12 @@ Applying this method the system obtained was the following:
     \left(2\right): -G_{1}V_{1}+\left(G_{1}+G_{2}+G_{3}\right)V_{2}-G_{2}V_{3}-G_{3}V_{4}=0            \\
     \left(3\right): -\left(G_{2}+K_{b}\right)V_{2}+G_{2}V_{3}+K_{b}V_{4}=0                             \\
     \left(4\right): V_{4}+K_{c}G_{6}V_{6}-V{7}=0                                                       \\
-    \left(5\right): K_{b}V_{2}-\left(G_{5}+K_{b})V_{4} \right) +G_{5}V_{5}=I_{d}                       \\
+    \left(5\right): K_{b}V_{2}-\left(G_{5}+K_{b}\right)V_{4} +G_{5}V_{5}=I_{d}                       \\
     \left(6\right): \left(G_{6}+G_{7}\right)V_{6}-G_{7}V_{7}=0                                         \\
     \left(7\right): -G_{3}V_{2}+\left(G_{3}+G_{4}+G_{5}\right)V_{4}-G_{5}V_{5}-G_{7}V_{6}+G_{7}V_{6}=0 \\
   \end{cases}
 \end{equation}
-For this method, Kirchhoff's Current Law (KCL) was aplied directly for node $2$, $3$, $5$ and $6$ (there are no voltage sources connected to these nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-refence nodes (nodes $4$ and $7$), it was required to apply the supernode construct (equation (7)).
+For this method, Kirchhoff's Current Law (KCL) was aplied directly for node $2$, $3$, $5$ and $6$ (there are no voltage sources connected to these nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-reference nodes (nodes $4$ and $7$), it was required to apply the supernode construct (equation (7)).
 Using the voltages of every node the currents and voltages for each branch can be calculated easily.
 
 \begin{table}[h]

@@ -19,13 +19,13 @@ A = [R1+R3+R4,R3,R4,0;-Kb*R3,1-Kb*R3,0,0;R4,0,R4+R6+R7-Kc,0;0,0,0,1]
 b = [Va;0;0;-Id]
 x = A\b
 printf("opMesh_TAB\n")
-printf("Ia = %f\nIb = %f\nIc = %f\nId = %f",x(1),x(2),x(3),x(4))
+printf("IA = %f\nIB = %f\nIC = %f\nID = %f",x(1),x(2),x(3),x(4))
 printf("\nopMesh_END\n\n")
 
 printf("\nCurrents through resistors:\n");
 I = [-x(1);x(2);x(1)+x(2);x(1)+x(3);x(2)+x(4);x(3);x(3)]
 printf("opMeshResCurrents_TAB\n")
-printf("I1 = %f\nI2 = %f\nI3 = %f\nI4 = %f\nI5 = %f\nI6 = %f\nI7 = %f\n",I(1),I(2),I(3),I(4),I(5),I(6),I(7))
+printf("I1 = %f\nI2 = %f\nI3 = %f\nI4 = %f\nI5 = %f\nIc = %f\nI7 = %f\n",I(1),I(2),I(3),I(4),I(5),I(6),I(7))
 printf("opMeshResCurrents_END\n\n")
 
 printf("\nVoltage drops across resistors:\n");
@@ -59,6 +59,6 @@ I5 = (y(4)-y(5))/R5
 I6 = -y(6)/R6
 I7 = (y(6)-y(7))/R7
 printf("\nopNodeResCurrents_TAB\n")
-printf("I1 = %f\nI2 = %f\nI3 = %f\nI4 = %f\nI5 = %f\nI6 = %f\nI7 = %f\n",I1,I2,I3,I4,I5,I6,I7)
+printf("I1 = %f\nI2 = %f\nI3 = %f\nI4 = %f\nI5 = %f\nIc = %f\nI7 = %f\n",I1,I2,I3,I4,I5,I6,I7)
 printf("opNodeResCurrents_END\n\n")
 

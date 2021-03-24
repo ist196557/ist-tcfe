@@ -1,13 +1,7 @@
-\newpage
 \section{Simulation Analysis}
 \label{sec:simulation}
 
-We decided to, once again, put the circuit's scheme down below, so as to make the interpretation of the following results easier.
-\begin{figure}[h] \centering
-  \includegraphics[width=1\linewidth]{t1.pdf}
-  \caption{Circuit analysed.}
-  \label{fig:op}
-\end{figure}
+We decided to, once again, put the circuit's scheme down below, so as to make the interpretation of the following results easier (fig \ref{fig:op}).
 
 \subsection{Operating Point Analysis}
 
@@ -18,6 +12,12 @@ As such, one could expect to find slightly different results. However, this did 
 voltage source, with value $0\hspace{1mm}V$, in series with $R_{6}$ and $R_{7}$, in order to properly introduce the current $I_{c}$ in $V_{c}$'s calculation, in the current dependent
 voltage source. This was due to \emph{Ngspice}'s limitations, though. Thus,
 the value $V(6.5)$ in the table.
+
+\begin{figure}[h] \centering
+  \includegraphics[height=0.25\textheight]{t1.pdf}
+  \caption{Circuit analysed.}
+  \label{fig:op}
+\end{figure}
 
 \begin{table}[h]
   \centering
@@ -31,5 +31,7 @@ the value $V(6.5)$ in the table.
     Volt.}
   \label{tab:op}
 \end{table}
+\newpage
+
 
 
