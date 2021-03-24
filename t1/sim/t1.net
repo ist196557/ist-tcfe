@@ -11,8 +11,8 @@ R3 2 4 3.11772752237k
 R4 4 0 4.18589931649k
 R5 4 5 3.07515052435k
 
-R6 0 16 2.05395043467k
-VAux 16 6 0
+R6 0 6.5 2.05395043467k
+VAux 6.5 6 0
 R7 6 7 1.00552689939k
 
 Hc 4 7 VAux 8.2448059697k
@@ -23,7 +23,21 @@ Gb 5 3 (2,4) 7.20043221704m
 op
 
 echo  "op_TAB"
-print all
+print V(1)
+print V(2)
+print V(3)
+print V(4)
+print V(5)
+print V(6)
+print V(7)
+print @R1[i]
+print @R2[i]
+print @R3[i]
+print @R4[i]
+print @R5[i]
+print @R6[i]
+print @R7[i]
+
 echo  "op_END"
 
 quit
