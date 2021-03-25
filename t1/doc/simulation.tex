@@ -6,12 +6,12 @@ We decided to, once again, put the circuit's scheme down below, so as to make th
 \subsection{Operating Point Analysis}
 
 Table~\ref{tab:op} shows the simulated operating point results for the circuit
-under analysis. As can be seen, we obtianed similar results to the ones calculated in the theoretical analysis section. This is proof that our theoretical analysis is, indeed, correct.
+under analysis. As can be seen, we obtained similar results to the ones calculated in the theoretical analysis section. This is proof that our theoretical analysis is, indeed, correct.
 We noticed, however, that \emph{Octave} rounded the values of the circuit's parameters ($R_{1}, ..., R_{7}, V_{a}, I_{d}, K_{b}, K_{c}$), whereas \emph{Ngspice} operated with the same precision as the one provided initially (no rounding).
 As such, one could expect to find slightly different results. However, this did not prove to be the case. Another important thing to note is that we had to insert a fictitional
 voltage source, with value $0\hspace{1mm}V$, in series with $R_{6}$ and $R_{7}$, in order to properly introduce the current $I_{c}$ in $V_{c}$'s calculation, in the current dependent
 voltage source. This was due to \emph{Ngspice}'s limitations, though. Thus,
-the value $V(6.5)$ in the table.
+the value $V(6.5)$ in the table, which is equal to $V(6)$, like we required it to.
 
 \begin{figure}[h] \centering
   \includegraphics[height=0.25\textheight]{t1_meshes.pdf}

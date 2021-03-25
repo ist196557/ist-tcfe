@@ -60,7 +60,7 @@ The results obtained are written below.
     \centering
     \begin{tabular}{|c|c|}
       \hline
-      {\bf Name} & {\bf Value [mA]} \\ \hline
+      {\bf Name} & {\bf Value [V]} \\ \hline
       \input{../mat/opMeshResVoltages_tab}
     \end{tabular}
     \caption{Mesh analysis: values obtained for the voltage drops across resistors.}
@@ -82,18 +82,17 @@ Applying this method the system obtained was the following:
     \left(7\right): -G_{3}V_{2}+\left(G_{3}+G_{4}+G_{5}\right)V_{4}-G_{5}V_{5}-G_{7}V_{6}+G_{7}V_{6}=0 \\
   \end{cases}
 \end{equation}
-For this method, Kirchhoff's Current Law (KCL) was aplied directly for node $2$, $3$, $5$ and $6$ (there are no voltage sources connected to these nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-reference nodes (nodes $4$ and $7$), it was required to apply the supernode construct (equation (7)).
-Using the voltages of every node the currents and voltages for each branch can be calculated easily.
+For this method, Kirchhoff's Current Law (KCL) was applied directly for nodes $2$, $3$, $5$ and $6$ (there are no voltage sources connected to these nodes), giving us equations (2),(3),(5) and (6). Equations (1) and (4) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-reference nodes (nodes $4$ and $7$), we were required to apply the supernode construct (equation (7)).
+Using the voltages of every node, the currents and voltages for each branch can be calculated easily.
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|r|}
     \hline
-    {\bf Name} & {\bf Value [mA]} \\ \hline
+    {\bf Name} & {\bf Value [V]} \\ \hline
     \input{../mat/opNode_tab}
   \end{tabular}
   \caption{Node analysis: values obtained for node potentials.}
-  \caption{Node analysis: values obtained for the currents running through the resistors.}
   \label{tab:op2}
 \end{table}
 
