@@ -14,12 +14,12 @@ Using this method the following system was obtained:
     \left(A\right): \left(R_{1}+R_{3}+R_{4}\right)I_{A}+R_{3}I_{B}+R_{4}I_{C}=V_{a} \\
     \left(B\right): -K_{b}R_{3}I_{A}+\left(1-K_{b}R_{3}\right)I_{B}=0               \\
     \left(C\right): R_{4}I_{A}+\left(R_{4}+R_{6}+R_{7}-K_{c}\right)I_{c}=0        \\
-    \left(D\right): I_{D}=-Id
+    \left(D\right): I_{D}=-I_{d}
   \end{cases}
 \end{equation}
-For mesh A and C (meshes without current sources) we used Kirchhoff's Voltage Law(KVL) around each mesh (equations (A) and (C)).
-For mesh B and D (meshes with current sources) we used the relations between the current of the current sources and the meshes currents (equations (B) and (D)).
-Using the following equations we can then find the currents through each resistor:
+For meshes A and C (meshes without current sources), we used Kirchhoff's Voltage Law (KVL) around each mesh (equations (A) and (C)).
+For meshes B and D (meshes with current sources), we used the relations between the current of the current sources and the mesh's current (equations (B) and (D)).
+Using the following equations, we can then find the currents through each resistor:
 \begin{equation}
   \begin{cases}
     I_{1}=-I_{A}      \\
@@ -63,7 +63,7 @@ The results obtained are written below.
       {\bf Name} & {\bf Value [V]} \\ \hline
       \input{../mat/opMeshResVoltages_tab}
     \end{tabular}
-    \caption{Mesh analysis: values obtained for the voltage drops across resistors.}
+    \caption{Mesh analysis: values obtained for the voltage drops across resistors (in order, $R_{1}$, ..., $R_{7}$ ).}
   }
 \end{table}
 
@@ -97,12 +97,24 @@ Using the voltages of every node, the currents and voltages for each branch can 
 \end{table}
 
 \begin{table}[h]
-  \centering
-  \begin{tabular}{|l|r|}
-    \hline
-    {\bf Name} & {\bf Value [mA]} \\ \hline
-    \input{../mat/opNodeResCurrents_tab}
-  \end{tabular}
-  \caption{Node analysis: values obtained for the currents running through the resistors.}
-  \label{tab:op3}
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [mA]} \\ \hline
+      \input{../mat/opNodeResCurrents_tab}
+    \end{tabular}
+    \caption{Node analysis: values obtained for the currents running through the resistors.}
+  }
+  \hfill
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [V]} \\ \hline
+      \input{../mat/opNodeResVoltageDrops_tab}
+    \end{tabular}
+    \caption{Node analysis: values obtained for the voltage drops across resistors (in order, $R_{1}$, ..., $R_{7}$ ).}
+  }
 \end{table}
+As we can see, the results obtained are equivalent to the ones achieved through the mesh analysis method.

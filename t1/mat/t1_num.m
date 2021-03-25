@@ -62,3 +62,8 @@ printf("\nopNodeResCurrents_TAB\n")
 printf("I1 = %f\nI2 = %f\nI3 = %f\nI4 = %f\nI5 = %f\nIc = %f\nI7 = %f\n",I1,I2,I3,I4,I5,I6,I7)
 printf("opNodeResCurrents_END\n\n")
 
+printf("\nopNodeResVoltageDrops_TAB\n")
+printf("V2-V1 = %f\nV3-V2 = %f\nV2-V4 = %f\nV4-V0 = %f\nV4-V5 = %f\nV0-V6 = %f\nV6-V7 = %f\n",y(2)-y(1),y(3)-y(2),y(2)-y(4),y(4)-0,y(4)-y(5),0-y(6),y(6)-y(7))
+printf("opNodeResVoltageDrops_END\n\n")
+
+
