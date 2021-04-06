@@ -1,0 +1,39 @@
+
+*Independent Voltage source
+Vs 1 GND 0 ac 1.0 0 sin(0 1.0 1k)
+
+*Capacitor
+C1 6 8 1.00982059009u ic=8.38099V
+
+*Resistors
+R1 1 2 1.0476827939k
+R2 3 2 2.06734674703k
+R3 2 5 3.11772752237k
+R4 5 GND 4.18589931649k
+R5 5 6 3.07515052435k
+
+*Auxiliar voltage source (VAux) for inputing current for current-dependent voltage source
+R6 GND 6.5 2.05395043467k
+VAux 6.5 7 0
+R7 7 8 1.00552689939k
+
+Hd 5 8 VAux 8.2448059697k
+Gb 6 3 (2,5) 7.20043221704m
+
+.control
+
+*makes plots in color
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=rgb:0/8/7
+
+ac dec 10 0.1 1MEG
+
+hardcopy t2_5.ps db(V(6)) db(V(1))
+
+quit
+
+.endc
+
+.end
