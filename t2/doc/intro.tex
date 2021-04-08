@@ -1,0 +1,57 @@
+\section{Introduction}
+\label{sec:introduction}
+
+% state the learning objective 
+%The objective of this laboratory assignment is to study a circuit composed of
+%four elementary meshes, where these can contain resistors, independent current or voltage sources
+%and dependent current or voltage sources as seen in figure
+%\ref{fig:rc}.
+
+The objective of this laboratory assignment is to study a RC circuit containing a total of
+seven nodes plus the ground (GND), seven resistors, two voltage sources, one independent the other
+varies proportionally with the current $I_c$ - current controlled voltage source -, one dependent current
+source proportional to the voltage $V_b$ - voltage controlled current source -, and finally a capacitor as 
+seen in figure \ref{fig:rc}.
+Futhermore, it is important to highlight that it is considered that the independent voltage source ($v_{s}$) supplies
+in the following form:
+
+\begin{equation}
+    v_{s}\left( t\right) =\begin{cases}V_{s},t <0\\ \sin \left( 2\pi ft\right) ,t\geq 0\end{cases}
+\end{equation}
+
+
+%In mesh B, we find a current source whose current is proportional to the voltage $V_{b}$
+%(voltage controlled current source).
+%In mesh C, on the other hand, there is a voltage source that varies proportionally
+%with the current $I_c$ (current controlled voltage source).
+%The proportionality constants for these two cases are called, respectively,
+%transconductance (SI unit: Siemens - S) and transresistance (SI unit: Ohm - $\Omega$).
+
+
+In Section~\ref{sec:analysis}, a theoretical analysis of the circuit is
+presented. We start with a nodal analysis with the goal of obtaining the voltage in every node, for  $t<0$
+and from there getting the values of the current in every branch.
+Hereinafter, we started the analysis for $t\geq0$. Firstly, to compute the natural solution ($v_{6n}(t)$)
+using the initial conditions we calculated the equivalent resistance ($R_{eq}$), imposing $V_{x}$ = $V_{6}$ - $V_{8}$ which were
+obtained in the previous step, as seen from the the capacitor. Then,
+the forced solution was determined running the nodal analysis with phasor voltages and
+replacing C with its impendance $Z_c$. The final solution is just the superposition of these two.
+Finally, we determined the frequency responses of $v_{c}(f)$ = $v_{6}(f)$ - $v_{8}(f)$ and $v_{6}(f)$ for frequencies that ranges from
+0.1Hz to 1MHz.
+
+In Section~\ref{sec:simulation}, the circuit is analysed by
+simulation, and the results are compared to the theoretical results obtained in
+Section~\ref{sec:analysis}.
+
+The conclusions of this study are outlined in
+Section~\ref{sec:conclusion}.
+
+In both the theoretical and simulation analysis some
+current directions are defined as in figure \ref{fig:rc}.
+
+\begin{figure}[h] \centering
+    \includegraphics[width=\linewidth]{t2_RC.pdf}
+    \caption{Circuit analysed.}
+    \label{fig:rc}
+\end{figure}
+

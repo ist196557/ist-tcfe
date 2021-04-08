@@ -1,0 +1,102 @@
+\section{Simulation Analysis}
+\label{sec:simulation}
+
+\subsection{Operating point analysis (t$<$0)}
+
+In the first part of the simulation we studied the circuit for t $<$ 0 using operating point analysis.
+In order to do that, we assumed the same characteristics as described in subsection (\ref{subsec:analysis2})
+with the addition that we had to add an additional voltage source of $0V$ in series with the resistor $R6$
+working as some kind of "amperemeter" measuring the current $I{d}$ as it was necessary
+since the current-controlled voltage source - $V_{d}$ - dependend on this value.
+The results are shown in the following table (\ref{tab:ngs1}):
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [V or A]} \\ \hline
+    \input{../sim/t2_1_ngs_tab}
+  \end{tabular}
+  \caption{Values obtained for t$<$0.}
+  \label{tab:ngs1}
+\end{table}
+
+Compared to the theoretical results, one notices that the results are similar
+and only differ in digits with small order of magnitude. Aditionally, we tested the simulation
+with different data values and the results were very similar to their theoretical counterparts as well.
+
+\newpage
+
+\subsection{Operating point analysis (t$=$0)}
+In this section, we repeated the procedure described in subsection \ref{subsec:opA0}
+ in \emph{Ngspice}, and obtained the following results for the node potentials, current $I_{x}$ and $R_eq$,
+ shown in table (\ref{tab:ngs2}).
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [V or A]} \\ \hline
+    \input{../sim/t2_2_ngs_tab}
+  \end{tabular}
+  \caption{Values obtained for t$<$0.}
+  \label{tab:ngs2}
+\end{table}
+The results obtained were similar to the ones calculated in subsection \ref{subsec:opA0}, with the only difference
+being the extra precision that \emph{Ngspice} offers: where, for \emph{Octave}, $V(2)=0$,
+ for \emph{Ngspice}, $V(2)\approx0$.
+\newpage
+
+\subsection{Sinusoidal analysis (t$>$0)}
+
+\subsubsection{Natural solution}
+
+The following graph shows the natural solution for node $6$, $v{6n}\left(t\right)$,
+ according to the simulation that was run. Just like in the theoretical analysis, 
+ the voltages in nodes $6$ and $8$ at $t=0$ were used as the initial conditions
+  and the voltage source, $V{s}$, was set to $0$.
+  
+\begin{figure}[h] \centering
+  \includegraphics[width=\linewidth]{t2_3_ngs.pdf}
+  \caption{Natural solution.}
+  \label{fig:nsg3}
+\end{figure}
+
+\newpage
+
+\subsubsection{Total solution}
+
+In this part we simulated the evolution in time of the total response on node 6 and the voltage source
+stimulus as can be seen in the figure (\ref{fig:ngs4}):
+
+\begin{figure}[h] \centering
+  \includegraphics[width=\linewidth]{t2_4_ngs.pdf}
+  \caption{Total solution.}
+  \label{fig:ngs4}
+\end{figure}
+
+Comparing the results with the theoretical ones (obtained in \emph{Octave}), we can conclude that
+they match the ones computed theoretically both in the phase and magnitude of the forced signal and
+aswell in the evolution in time of the voltage source stimulus.
+
+\newpage
+
+\subsubsection{Frequency response}
+%%%%%% Frequency response
+The graphs below show the simulation results for the magnitude and phase in node 6,
+ as well as in the source, for frequencies between $0.1 Hz$ and $1 MHz$. 
+ The description of these graphics is similar to the one presented in the theoretical analysis.
+
+\begin{figure}[h] \centering
+  \includegraphics[width=\linewidth]{t2_5_magnitude.pdf}
+  \caption{Magnitude [dB] vs frequency [Hz].}
+  \label{fig:ngs5m}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h] \centering
+  \includegraphics[width=\linewidth]{t2_5_phase.pdf}
+  \caption{Phase [Degrees] vs frequency [Hz].}
+  \label{fig:ngs5p}
+\end{figure}

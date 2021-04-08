@@ -1,0 +1,218 @@
+\newpage
+\section{Theoretical Analysis}
+\label{sec:analysis}
+
+In this section, the circuit shown in figure \ref{fig:rc} is analysed
+theoretically.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% 1)
+\subsection{Operating point analysis(t$<$0)}
+\label{subsec:analysis2}
+
+For $t<0$, $v_{s}\left(t\right)=V_{s}$.
+Applying the nodal method, the system obtained was the following:
+\begin{equation}
+  \begin{cases}
+    \left(1\right): V_{1}=V_{s}                                                                        \\
+    \left(2\right): -G_{1}V_{1}+\left(G_{1}+G_{2}+G_{3}\right)V_{2}-G_{2}V_{3}-G_{3}V_{5}=0            \\
+    \left(3\right): -\left(G_{2}+K_{b}\right)V_{2}+G_{2}V_{3}+K_{b}V_{5}=0                             \\
+    \left(5\right): -G_{3}V_{2}+\left(G_{3}+G_{4}+G_{5}\right)V_{5}-G_{5}V_{6}-G_{7}V_{7}+G_{7}V_{8}=0 \\
+    \left(6\right): K_{b}V_{2}-\left(G_{5}+K_{b}\right)V_{5} +G_{5}V_{6}=0                             \\
+    \left(7\right): \left(G_{6}+G_{7}\right)V_{7}-G_{7}V_{8}=0                                         \\
+    \left(8\right): V_{5}-K_{d}G_{6}V_{7}-V{8}=0                                                       \\
+  \end{cases}
+\end{equation}
+For this method, Kirchhoff's Current Law (KCL) was applied directly for nodes $2$, $3$, $6$ and $7$ (there are no voltage sources connected to these nodes), giving us equations (2),(3),(6) and (7). Equations (1) and (8) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Finally, since the dependent voltage source is connected to 2 non-reference nodes (nodes $5$ and $8$), we were required to apply the supernode construct (equation (5)). There is no mention to equation (4) since node 4 is connected to the ground.
+Using the voltages of every node, the currents for each branch can be
+ calculated easily using the following expressions:
+
+\begin{equation}
+  \begin{cases}
+    I_{1}=(V_{2}-V{1})G_{1} \\
+    I_{2}=(V_{2}-V{3})G_{2} \\
+    I_{3}=(V_{2}-V{5})G_{3} \\
+    I_{4}=V{5}G_{4}         \\
+    I_{5}=(V_{5}-V{6})G_{5} \\
+    I_{d}=I_{7}=-V_{7}G_{6} \\
+    I_{c}=0                 \\
+  \end{cases}
+\end{equation}
+
+$I_{c}$=0, since we can consider that the capacitor is already full charged near
+$t=0$, so that it behaves like an open-circuit.
+
+The voltages in all nodes and the
+currents in all branches are presented in table (\ref{tab:1}):
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [V or A]} \\ \hline
+    \input{../mat/t2_1_Oct_tab}
+  \end{tabular}
+  \caption{Values obtained for t$<$0.}
+  \label{tab:1}
+\end{table}
+
+\newpage
+
+\subsection{Operating point analysis(t=0)}\label{subsec:opA0}
+
+In this section we calculate the voltages in all nodes at $t=0$, since the initial conditions are needed for the sinusoidal analysis. For this, we apply the nodal method for $v_{s}\left(0\right)=0$, replacing the capacitor with a voltage source $V_{x} = V\left(6\right)-V\left(8\right)$, where $V\left(6\right)$ and $V\left(8\right)$ are the voltages in nodes $6$ and $8$ as obtained when $t<0$. In fact, $v_{s}\left(0\right)=0$ only for $t>0$, but since we can consider that the capacitor voltage does not change from $t=0$ to $t=0^{+}$, we can use $t=0$.
+\begin{equation}
+  \begin{cases}
+    \left(1\right): -G_{1}V_{2}-G_{4}V_{5}-G_{6}V_{7}=0                         \\
+    \left(2\right): \left(G_{1}+G_{2}+G_{3}\right)V_{2}-G_{2}V_{3}-G_{3}V_{5}=0 \\
+    \left(3\right): -\left(G_{2}+K_{b}\right)V_{2}+G_{2}V_{3}+K_{b}V_{5}=0      \\
+    \left(5\right): V_{5}+K_{d}G_{6}V_{7}-V_{8}=0                               \\
+    \left(6\right): V_{6}-V_{8}=V_{x}                                           \\
+    \left(7\right): \left(G_{6}+G_{7}\right)V_{7}-G_{7}V_{8}=0                  \\
+  \end{cases}
+\end{equation}
+
+Kirchhoff's Current Law (KCL) was applied directly for nodes $1$, $2$, $3$ and $7$ (there are no voltage sources connected to these nodes, since $V_{s}$ now behaves like a short-circuit), giving us equations (1),(2),(3) and (7). Equations (5) and (6) appear directly from the voltage sources  and the voltages of the nodes which they are connected to. Since nodes $1$ and $4$ are now the same we have one less node and we do not need to apply the supernode construct because there are already enough equations.
+
+The voltages in all nodes are presented in table (\ref{tab:2}).
+Using KCL in node $6$ we determined $I_{x}$ supplied by $V_{x}$,
+we were able to compute the equivalent resistance $R_{eq}$ as 
+seen from the capacitor terminals ($R_{eq}=V_{x}/I_{x}$). 
+Then we computed the time constant $\tau=R_{eq}C$. The results are shown in table (\ref{tab:2}). 
+
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [V or A or $\Omega$ or $s^{-1}$]} \\ \hline
+    \input{../mat/t2_2_Oct_tab}
+  \end{tabular}
+  \caption{Values obtained for t$<$0.}
+  \label{tab:2}
+\end{table}
+
+\newpage
+
+\subsection{Sinosoidal analysis(t$>$0)}
+
+For $t>0$, $v_{s}\left(t\right)=sin\left(2\pi ft\right)$.
+Since this circuit contains only voltage and current sources, resistors and a single capacitor, the general solution for the total response on node 6 can be given by:
+\begin{equation}
+  v_{6}\left(t\right)=v_{6f}\left(t\right)+v_{6n}\left(t\right)
+\end{equation}
+
+Where $v_{6f}\left(t\right)$ corresponds to the forced 
+solution and $v_{6n}\left(t\right)$ corresponds to the natural solution.
+
+\subsubsection{Natural solution}
+
+The natural solution is given by $v_{6n}\left(t\right)=A\exp(-\frac{t}{\tau})$,
+ where $\tau$ is the time constant calculated in the last section. 
+ $A=v_{6n}\left(0\right)$, so we can use the value for $v_{6n}\left(0\right)$
+  calculated in the operating point analysis for $t=0$. 
+  The plot for the natural solution in the interval $\left[0,20\right] ms$ 
+  is shown below in figure (\ref{fig:t2_3_Oct}):
+
+%%%%%%%%%%%%%%%%%%%% Plot 3)
+\begin{figure}[h] \centering
+  \includegraphics[width=0.75\linewidth]{t2_3_Oct.pdf}
+  \caption{Natural solution.}
+  \label{fig:t2_3_Oct}
+\end{figure}
+
+\newpage
+
+\subsubsection{Forced solution}
+
+To determine the forced solution in the same interval for $f=1KHz$ we used the phasor voltages in all nodes, replacing $C$ with its impedance $Z_{c}$.
+ We used the nodal method to calculate these phasor voltages. We considered $\tilde{V_{s}}=1$, so then, to determine 
+ the voltages in any node we need to 
+ take the imaginary part of the respective phasor multiplied by $\exp(j\omega t)$, 
+ since the stimulus $v_{s}\left(t\right)$ is a sine and not a cosine.  
+\begin{equation}
+  \begin{cases}
+    \left(1\right): \tilde{V_{1}}=1                                                                                                                        \\
+    \left(2\right): -G_{1}\tilde{V_{1}}+\left(G_{1}+G_{2}+G_{3}\right)\tilde{V_{2}}-G_{2}\tilde{V_{3}}-G_{3}\tilde{V_{5}}=0                                                        \\
+    \left(3\right): -\left(G_{2}+K_{b}\right)\tilde{V_{2}}+G_{2}\tilde{V_{3}}+K_{b}\tilde{V_{5}}=0                                                                         \\
+    \left(5\right): -G_{3}\tilde{V_{2}}+\left(G_{3}+G_{4}+G_{5}\right)\tilde{V_{5}}-\left(G_{5}+2\pi fCj\right)\tilde{V_{6}}-G_{7}\tilde{V_{7}}+\left(G_{7}+2\pi fCj\right)\tilde{V_{8}}=0 \\
+    \left(6\right): K_{b}\tilde{V_{2}}-\left(G_{5}+K_{b}\right)\tilde{V_{5}} +\left(G_{5}-2\pi fCj\right)\tilde{V_{6}}+2\pi fCj\tilde{V_{8}}=0                                     \\
+    \left(7\right): \left(G_{6}+G_{7}\right)\tilde{V_{7}}-G_{7}\tilde{V_{8}}=0                                                                                     \\
+    \left(8\right): \tilde{V_{5}}-K_{d}G_{6}\tilde{V_{7}}-\tilde{V_{8}}=0                                                                                                   \\
+  \end{cases}
+\end{equation}
+
+The following table has the complex amplitudes of the phasor voltages obtained with this nodal method:
+
+%%%%%%%%%%%%%%%%%%%%%%% Complex tables
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [V]} \\ \hline
+    \input{../mat/t2_4_Oct_tab}
+  \end{tabular}
+  \caption{Complex amplitudes of the phasor voltages.}
+  \label{tab:3}
+\end{table}
+
+\newpage
+
+\subsubsection{Total solution}
+
+We now have both the natural, $v_{6n}\left(t\right)$, and the forced, $v_{6f}\left(t\right)$,
+ solutions in node $6$, so we can compute the final total solution by
+  superimposing these two solutions ($v_{6}\left(t\right)=v_{6f}\left(t\right)+v_{6n}\left(t\right)$).
+   The plot for the total solution in the interval $\left[-5,20\right] ms$ is shown below in
+    figure (\ref{fig:t2_5_Oct}),
+    for both $v_{6}\left(t\right)$ and $v_{s}\left(t\right)$:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Plot total solution
+\begin{figure}[h] \centering
+  \includegraphics[width=\linewidth]{t2_5_Oct.pdf}
+  \caption{Total solution.}
+  \label{fig:t2_5_Oct}
+\end{figure}
+
+\newpage
+
+\subsubsection{Frequency responses}
+
+Finally, we determined the frequency responses $v_{c}\left(f\right)=v_{6}\left(f\right)-v_{8}\left(f\right)$
+ and $v_{6}\left(f\right)$ for frequency range $0.1 Hz$ to $1 MHz$.
+  For this we used the same system we used for the nodal method to calculate the phasor 
+  voltages in all nodes, but now using a range of frequencies instead of only $f=1KHz$.
+The plots in figure (\ref{fig:t2_5_MagnitudeAndPhase}) 
+show the magnitude, in $dB$, and the phase, in degrees, of the phasors $\tilde{V_{s}}$, 
+$\tilde{V_{c}}$ and $\tilde{V_{6}}$, using a frequency logarithmic scale.
+
+%%%%%%%%%%%%%%%%%%%%%%% Plot magnitude and phase
+\begin{figure}[h] \centering
+  \includegraphics[width=\linewidth]{t2_6_Oct.pdf}
+  \caption{Magnitude plot.}
+  \label{fig:t2_5_MagnitudeAndPhase}
+\end{figure}
+
+Both the magnitude and the phase for $\tilde{V_{s}}$ are constant since, for $t>0$, $v_{s}\left(t\right)=sin\left(2\pi ft\right)$, so it has magnitude $1$ and phase $0$.  
+
+The phase plot shows that the voltages for node $6$ and the capacitor remain aproximately constant 
+for both small and high frequencies, but they vary somewhere in between. For small frequencies,
+ these voltages are both in phase with the source, while for high frequencies the voltage in 
+ node 6 is in opposition phase with the source, since the phase difference is $-180\degree$,
+  and the voltage in the capacitor is $-90\degree$ out of phase with the source.
+
+The magnitude plot shows that the magnitude in node $6$ remains constant for small and high frequencies,
+ and varies somewehere in between like the phase, from a magnitude higher than the source to a 
+ lower one. The magnitude in the capacitor is also constant for small frequencies but then
+  starts decreasing linearly, since it is shown in $dB$. This means that in $Volts$, the
+   magnitude in the capacitor would tend to $0$ for high frequencies. 
+
+
+\newpage
+
+
+
+
+
+
+

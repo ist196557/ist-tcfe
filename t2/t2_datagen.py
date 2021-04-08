@@ -7,6 +7,10 @@
 
 import math
 import random
+import sys
+
+
+my_array = list()
 
 class Var:
     def __init__(self, name, val, tol):
@@ -14,6 +18,8 @@ class Var:
         self.val = val + random.random()*(val*float(tol)/100)
         
     def printVar(self):
+        global my_array
+        my_array.append(self)
         print self.name, "=", self.val, "\n",
         
 class Prob:
@@ -23,7 +29,7 @@ class Prob:
         self.weight = weight
         
     def printProb(self):
-        print "Values: ",
+        print "Values: \n",
         for i in range(len(self.varList)):
             self.varList[i].printVar()
         print "\n\n"
@@ -66,14 +72,97 @@ class DataSet:
 
 def main():
     #init test
-    number = input("\n\nPlease enter the lowest student number in your group: \n")
-    print
-    print
-    dataset = DataSet(number)
-
-    #print test
-    dataset.printDataSet()
-    
+    #number = input("\n\nPlease enter the lowest student number in your group: \n")
+    number = 0
+    def f(x):
+        x=x.lower()
+        return {
+            'y': 1,
+            'yes': 1,
+            'n': 0,
+            'no': 0
+        }.get(x, 2)
+    while(1):
+        #print("Poggers")
+        number = raw_input("\n\nDo you want to use the default data (96502)? (Y-yes, N-no) \n")
+        x = f(number)
+        if(x==1):
+                print
+                print
+                dataset = DataSet(96502)
+                dataset.printDataSet()
+                break
+        if(x==0):
+            data_number = raw_input("\n\nPlease enter the lowest student number in the group: \n")
+            print
+            print
+            dataset = DataSet(int(data_number))
+            dataset.printDataSet()
+            break
+        if(x==2):
+            print("Invalid input.")
+    global my_array
+    f = open("./sim/data1.txt", "w")
+    f.write("Vs 1 GND "+ str(my_array[7].val)+" ac 1.0 0\n")
+    f.write("C1 6 8 "+str(my_array[8].val)+"u ic=0V\n")
+    f.write("R1 1 2 "+str(my_array[0].val)+"k\n")
+    f.write("R2 3 2 "+str(my_array[1].val)+"k\n")
+    f.write("R3 2 5 "+str(my_array[2].val)+"k\n")
+    f.write("R4 5 GND "+str(my_array[3].val)+"k\n")
+    f.write("R5 5 6 "+str(my_array[4].val)+"k\n")
+    f.write("R6 GND 6.5 "+str(my_array[5].val)+"k\n")
+    f.write("VAux 6.5 7 0\n")
+    f.write("R7 7 8 "+str(my_array[6].val)+"k\n")   
+    f.write("Hd 5 8 VAux "+str(my_array[10].val)+"k\n")
+    f.write("Gb 6 3 (2,5) "+str(my_array[9].val)+"m\n")
+    f.close()
+    #####################################################
+    f = open("./sim/data2.txt", "w")
+    f.write("Vs 1 GND 0 ac 1.0 0\n")
+    f.write("R1 1 2 "+str(my_array[0].val)+"k\n")
+    f.write("R2 3 2 "+str(my_array[1].val)+"k\n")
+    f.write("R3 2 5 "+str(my_array[2].val)+"k\n")
+    f.write("R4 5 GND "+str(my_array[3].val)+"k\n")
+    f.write("R5 5 6 "+str(my_array[4].val)+"k\n")
+    f.write("R6 GND 6.5 "+str(my_array[5].val)+"k\n")
+    f.write("VAux 6.5 7 0\n")
+    f.write("R7 7 8 "+str(my_array[6].val)+"k\n")   
+    f.write("Hd 5 8 VAux "+str(my_array[10].val)+"k\n")
+    f.write("Gb 6 3 (2,5) "+str(my_array[9].val)+"m\n")
+    #f.write("C1 6 8 "+str(my_array[8].val)+"u ic=0V\n") adicionar next
+    f.close()
+    #####################################################
+    f = open("./sim/data3.txt", "w")
+    f.write("Vs 1 GND 0 ac 1.0 0\n")
+    f.write("R1 1 2 "+str(my_array[0].val)+"k\n")
+    f.write("R2 3 2 "+str(my_array[1].val)+"k\n")
+    f.write("R3 2 5 "+str(my_array[2].val)+"k\n")
+    f.write("R4 5 GND "+str(my_array[3].val)+"k\n")
+    f.write("R5 5 6 "+str(my_array[4].val)+"k\n")
+    f.write("R6 GND 6.5 "+str(my_array[5].val)+"k\n")
+    f.write("VAux 6.5 7 0\n")
+    f.write("R7 7 8 "+str(my_array[6].val)+"k\n")   
+    f.write("Hd 5 8 VAux "+str(my_array[10].val)+"k\n")
+    f.write("Gb 6 3 (2,5) "+str(my_array[9].val)+"m\n")
+    #f.write("C1 6 8 "+str(my_array[8].val)+"u ic=0V\n") adicionar next
+    f.close()
+    #####################################################
+    f = open("./sim/data45.txt", "w")
+    f.write("Vs 1 GND 0 ac 1.0 0 sin(0 1.0 1k)\n")
+    f.write("R1 1 2 "+str(my_array[0].val)+"k\n")
+    f.write("R2 3 2 "+str(my_array[1].val)+"k\n")
+    f.write("R3 2 5 "+str(my_array[2].val)+"k\n")
+    f.write("R4 5 GND "+str(my_array[3].val)+"k\n")
+    f.write("R5 5 6 "+str(my_array[4].val)+"k\n")
+    f.write("R6 GND 6.5 "+str(my_array[5].val)+"k\n")
+    f.write("VAux 6.5 7 0\n")
+    f.write("R7 7 8 "+str(my_array[6].val)+"k\n")   
+    f.write("Hd 5 8 VAux "+str(my_array[10].val)+"k\n")
+    f.write("Gb 6 3 (2,5) "+str(my_array[9].val)+"m\n")
+    #f.write("C1 6 8 "+str(my_array[8].val)+"u ic=0V\n") adicionar next
+    f.close()
+    f = open("./sim/dataExtra.txt", "w")
+    f.write(str(my_array[8].val))
+    f.close()
 if __name__ == "__main__": main()
-
 
