@@ -59,7 +59,7 @@ D20 D19 0 diode
 	set hcopypscolor=1
 	set color0=white
 	set color1=black
-	set color2=rgb:0/8/7
+	set color2=rgb:700/0/0
 
 	run
 	tran 0.3m 60m 0m
@@ -78,6 +78,12 @@ D20 D19 0 diode
 
 	hardcopy spice_t3_2.ps V(out)-12
 	echo spice_t3_2_FIG
+
+    hardcopy spice_t3_zoom.ps V(out) V(n3) xlimit 20m 60m ylimit 11.9 14.1
+	echo spice_t3_zoom_FIG
+
+	hardcopy spice_t3_2_zoom.ps V(out)-12 xlimit 20m 60m ylimit -0.015 0.015
+	echo spice_t3_2_zoom_FIG
 
 	quit
 .ENDC
