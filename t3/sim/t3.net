@@ -1,0 +1,83 @@
+
+Vin  a1 b1 SIN(0 230 50)
+*                         *1/n* => 1/n = 0.0(6) => n = 15
+FEntradaTransf a1 b1 VAux 0.06666666666666666666666666666666666666
+VAux n1 nAux 0
+ESaidaTransf nAux n2 a1 b1 0.06666666666666666666666666666666666666
+
+*RAux needs to be here because of ngspice's limitations:
+*Needed to model ideal transformer.
+RAux b1 n2 10Meg
+
+D13  n1 n3  diode
+D23  n2 n3  diode
+D41  0 n1  diode
+D42  0 n2  diode
+
+C1  n3 0  25u
+*Can try R1 = 10k => Gives really small ripple, but higher cost
+R1  n3 out  16.6k
+
+*We'll need 17 diodes? 12/0.7 ~ 17.14
+D1  out D1  diode
+D2  D1 D2  diode
+D3  D2 D3  diode
+D4  D3 D4 diode
+D5  D4 D5 diode
+D6  D5 D6 diode
+D7  D6 D7 diode
+D8  D7 D8 diode
+D9  D8 D9 diode
+D10  D9 D10 diode
+D11  D10 D11 diode
+D12  D11 D12 diode
+D13B  D12 D13 diode
+*D13 is already defined above
+D14  D13 D14 diode
+D15  D14 D15 diode
+D16  D15 D16 diode
+D17  D16 D17 diode
+D18  D17 D18 diode
+D19 D18 D19 diode
+D20 D19 0 diode
+
+*D1P  out D1P  diode
+*D2P  D1P D2P  diode
+*D3P  D2P D3P  diode
+*D4P  D3P D4P diode
+*D5P  D4P D5P diode
+*D6P  D5P D6P diode
+*D7P  D6P 0 diode
+
+*RL out 0 1k
+
+.MODEL  diode d
+
+.CONTROL
+
+	*makes plots in color
+	set hcopypscolor=1
+	set color0=white
+	set color1=black
+	set color2=rgb:0/8/7
+
+	run
+	tran 0.3m 60m 0m
+	meas	tran	vavg	avg		v(out)	from=20m	to=50m
+	meas	tran	vmax	max		v(out)	from=20m	to=50m
+	meas	tran	vmin	min		v(out)	from=20m	to=50m
+    
+    print vmax-vmin
+
+	print 1/(44*((vmax-vmin)+abs(vavg-12)+1e-6))
+
+	print vavg/20
+
+    hardcopy spice_t3.ps V(out) V(n3)
+	echo spice_t3_FIG
+
+	hardcopy spice_t3_2.ps V(out)-12
+	echo spice_t3_2_FIG
+
+	quit
+.ENDC
