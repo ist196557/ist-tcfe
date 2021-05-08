@@ -2,18 +2,111 @@
 \section{Theoretical Analysis}
 \label{sec:analysis}
 
-\section{Comparing the theotherical analysis with the simulation.}\label{sec:Comparison}
+In this section we analysed the circuit theoretically. The values of $R$, $C$ and
+ $n$ are the same used in Ngspice, in order to better compare the two types of analysis. 
+ This way, the voltage induced on the secondary winding of the transformer is $v_{S}/n$, 
+ with $v_{S}$ corresponding to the voltage source. 
+
+First we calculated the output of the envelop detector (the capacitor voltage). For this,
+ we used the diode model composed by an ideal model + a voltage source, $V_{ON}$. The behavior
+  of this model can be described by the following expressions:
+
+\begin{equation}
+  \begin{cases}
+    i=0, v<V_{ON} \\
+    v=V_{ON}, i\geq 0 \\
+    
+  \end{cases}
+\end{equation}
+
+ The value used for $V_{ON}$ was the one obtained by the Ngspice simulation.
+  However, to calculate $t_{OFF}$, which corresponds to the time at which the
+   diodes in the full wave rectifier go OFF, we used the expression $t_{OFF}=\frac{1}{\omega}\arctan{\frac{1}{\omega RC}}$.
+    This expression assumes that the diodes are ideal, which basically corresponds to $V_{ON}=0$.
+     We did this because the equation becomes much simpler and the value for $t_{OFF}$ does
+      not differ too much from the one we would get using the $V_{ON} \neq 0$ model.
+ 
+ Knowing $t_{OFF}$, and the fact that there is a voltage drop of $2V_{ON}$ along the 
+ rectifier diodes, we get to the expression $v_{C}=(A\cos{(wt_{OFF})}-2V_{ON})\exp{\left(-\frac{t-t_{OFF}}{RC}\right)}$, 
+ when the capacitor is discharging. Since the capacitor starts discharging every half a period, we obtained 
+ the following graph for the envelop detector output voltage:
+ 
+ 
+ \begin{figure}[h] \centering
+    \includegraphics[scale=0.8]{Octave_t3.pdf}
+    \caption{Voltages at the output of the envelope detetctor (blue) and voltage regulator circuits (red), after initial transient effects.}
+    \label{fig:123}
+  \end{figure}
+ 
+ 
+ After this we used incremental analysis to calculate the voltage regulator output.
+  In this kind of analysis, each diode is equivalent to an incremental resistance given by the following expression:  
+ 
+\begin{equation}
+  r_{d} = \frac{\eta V_{T}}{I_{S}\cdot\exp{\left(\frac{V_{ON}}{\eta V_{T}}\right)}}
+\end{equation}
+  
+ where $\eta=1$ and $I_{S}=1 \times 10^{-14}$ (reverse saturation current), as in Ngspice, and $V_{T}= 25 \times 10^{-3}$ 
+ (thermal voltage). This way, we can calculate the AC component of the output by the following voltage divider relation:
+ 
+ \begin{equation}
+  v_{o}=\frac{20r_{d}}{20r_{d}+R}\cdot v_{c}
+\end{equation}
+ since $20$ was the number of diodes used in the voltage regulator.
+ The output voltage AC component obtained is shown below:
+ 
+
+  \begin{figure}[h] \centering
+    \includegraphics[scale=0.8]{Octave_t3_2.pdf}
+    \caption{Output AC component (V(out)-12), after initial transient effects.}
+    \label{fig:1234}
+  \end{figure} 
+ 
+The total output voltage is presented in Figure 10.
+The output DC level is $12.000020 \hspace{1mm}V\hspace{1mm} (= 20\hspace{1mm}V_{ON})$ and the voltage ripple is $32.106184\hspace{1mm}mV$.
+ 
+ 
+
+
+\section{Comparing the theotherical analysis with the simulation - Side by side comparison}\label{sec:Comparison}
 In the first part of the circuit (transformer) we didn't notice any particular variation from the theoretical to the simulation
 as we would expect since both ideal models were equal and the calculation were straightforward.
 
 For the rest of the circuit it is normal that both can differ since the diode's model used in \emph{Ngspice}
 is very complex whereas the model we decided to use in the theoretical analysis was
 a simpler version.
-Although the difference in both models used, we achieved very similar and satisfactory results.
+Despite the difference in both models used, we achieved very similar and satisfactory results.
 
-The following graphs summarise the small differences:
+We decided to show the simulation and theoretical analysis's plots side by side to allow for an easier comparison between the two methods. See next pages.
 
-COLOCAR GRÁFICOS.
+\clearpage
+
+
+\begin{figure}[h] \centering
+    \includegraphics[height=7.5cm]{Octave_t3.pdf}
+    \caption{(Theoretical) Voltages at the output of the envelope detetctor (blue) and voltage regulator circuits (orange), after intial transient effects.}
+    \label{fig:comp1_1}
+  \end{figure}
+
+\begin{figure}[h] \centering
+    \includegraphics[height=7.5cm]{spice_t3_zoom.pdf}
+    \caption{(Simulation) Voltages at the output of the envelope detetctor (blue) and voltage regulator circuits (red), after intial transient effects. This one is
+    zoomed in so as to make the comparison easier. (Detail in the interval [20, 60] ms).}
+    \label{fig:comp1_2}
+  \end{figure}
+
+      \begin{figure}[h] \centering
+        \includegraphics[height=10cm]{Octave_t3_2.pdf}
+        \caption{(Theoretical) Output AC component (V(out)-12), after initial transient effects.}
+        \label{fig:comp2_1}
+      \end{figure}
+    
+      \begin{figure}[h] \centering
+        \includegraphics[height=12cm]{spice_t3_2_zoom.pdf}
+        \caption{(Simulation) Output AC component (V(out)-12), after initial transient effects. This one is
+        zoomed in so as to make the comparison easier. (Detail in the interval [20, 60] ms).}
+        \label{fig:comp2_2}
+      \end{figure}
 
 \newpage
 

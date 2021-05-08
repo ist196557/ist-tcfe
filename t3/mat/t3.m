@@ -82,9 +82,18 @@ print ("Octave_t3.eps", "-depsc");
 printf("Octave_t3_FIG\n");
 
 figure
-plot(t*1000,vOutput-12)
+plot(t*1000,vOutput-12, "r")
 title("AC/DC Converter")
 legend("vOutput-12");
 print ("Octave_t3_2.eps", "-depsc");
 printf("Octave_t3_2_FIG\n");
+
+vOutDC=0;
+for i=1:length(t)
+vOutDC+=vOutput(i);
+endfor
+vOutDC/=length(t);
+
+printf("Ripple: %f mV\n",(max(vOutput)-min(vOutput))*1000);
+printf("Output DC level: %f V\n", vOutDC);
 
