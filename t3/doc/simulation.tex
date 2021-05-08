@@ -25,7 +25,8 @@ and a voltage controlled voltage source on the other side.
 The value of proportionality constant were the same in both and equal to n=1/15.
 As to fulfill \emph{Ngspice}\textquotesingle s requirements for this setup to work we had to use a auxiliary voltage source with V=0
 and a resistance with an absurd value (as to not pass current through it) to connect both circuits. We
-emphasize that these last two would not exist in a real circuit and they are just a requirement for \emph{Ngspice} to work.
+emphasize that these last two would not exist in a real circuit and they are just a requirement for \emph{Ngspice} to work. The simulation results are
+presented below.
 
 \begin{figure}[h] \centering
   \includegraphics[scale=0.5]{spice_t3.pdf}
@@ -41,21 +42,21 @@ emphasize that these last two would not exist in a real circuit and they are jus
 
 \begin{figure}[h] \centering
   \includegraphics[scale=0.5]{spice_t3_2.pdf}
-  \caption{Circuit analysed.}
+  \caption{Output AC component (V(out)-12).}
   \label{fig:22}
 \end{figure}
 
 \begin{figure}[h] \centering
   \includegraphics[scale=0.5]{Spice_t3_2_Zoom.pdf}
-  \caption{Circuit analysed.}
+  \caption{Output AC component (V(out)-12): detail in the interval [20, 60] ms.}
   \label{fig:44}
 \end{figure}
 
 \clearpage
 
-Overall, the results were highly satisfactory. The average output was very close to 12V ($\overline{V_{o}}=??$)
-and the ripple was really close to 0 ($Ripple=??$).
-The total cost (in monetary units) was ??, leaving us with a merit of ??, using the formula below:
+Overall, the results were highly satisfactory. The average output was very close to 12V ($\overline{V_{o}}=12.00002\hspace{1mm}V$)
+and the ripple was really close to 0 ($Ripple=10.01000\hspace{1mm}mV$).
+The total cost (in monetary units) was 44, leaving us with a merit of 2.265704, using the formula below:
 \begin{equation}
   M=\dfrac{1}{cost\cdot \left( ripple\left( V_{0}\right) +\overline{\left( v_{0}-12\right) }+10^{-6}\right) }
 \end{equation}
