@@ -54,7 +54,7 @@ When the input wave is negative, the path taken by the current is surprising, th
 The reasoning behind why the current goes though D3 and D1 is the same as
 the reason why the current went through D2 and D4 in the positive half of the input wave as explained before.
 
-In the end the objective we seeked was fullfilled as can be shown in the figure \ref{fig:rc4}.
+In the end the objective we seeked was fullfilled as can be seen in figure \ref{fig:rc4}.
 \begin{figure}[h] \centering
     \includegraphics[scale=0.75]{rectwave.png}
     \caption{Wave rectified.}
@@ -64,14 +64,14 @@ In the end the objective we seeked was fullfilled as can be shown in the figure 
 As we can see the voltage signal across the resistor (orange) has only positive values
 meanwhile the input signal (blue) has both positive and negative values.
 
-The capacitor we've put after the bridge rectifier in the figure \ref{fig:rc} allowed us to "smooth"
-the voltage drop when the signal gets weaker. When the signal is stronger that the voltage limiter(in this case the resistor and diodes)
+The capacitor we've put after the bridge rectifier in figure \ref{fig:rc} allowed us to "smooth"
+the voltage drop when the signal gets weaker. When the signal is stronger than the voltage limiter (in this case the resistor and diodes)
 it allows the capacitor to charge so that, when the signal is not strong enough to support the voltage limiter, the capacitor
 starts to discharge and in consequence the sub circuit containing the capacitor, resistor and diodes will still be
 active while the rest of the circuit "stops". When the signal gets strong again, the capacitor charges again and this whole process repeats again.
 \begin{figure}[h] \centering
     \includegraphics[scale=0.75]{filter.png}
-    \caption{Wave rectified.}
+    \caption{Wave rectified, with filter.}
     \label{fig:rc5}
 \end{figure}
 
