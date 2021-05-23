@@ -1,0 +1,163 @@
+\clearpage
+
+\section{Simulation Analysis}
+\label{sec:simulation}
+
+In this section we shall describe the simulation of the circuit presented in figure \ref{fig:circuito}.
+The models used for the npn and pnp transistors shown in figure \ref{fig:circuito} are, respectively, the BC557A and the BC547A,
+both Philips' products.
+As far as the actual simulation is concerned, firstly we did a transient analysis in order to study the output of the circuit and
+so we could check whether or not the output had any visible distortion. Having confirmed the abscence of said distortion, we decided to print out the values
+of the voltages in the transistors so we could verify that they were, in fact, in the forward active region (F.A.R). These values
+are presented in the following tables.
+
+\begin{table}[h]
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [V]} \\ \hline
+      \input{../sim/SimFARnpn_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's npn transistor voltages.}
+  }
+  \hfill
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [V]} \\ \hline
+      \input{../sim/SimFARpnp_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's pnp transistor voltages.}
+  }
+\end{table}
+
+As can be seen, the transistors are indeed in the F.A.R, as $V_{CE} > V_{BE}$, for the npn transistor, and $V_{EC} > V_{EB}$, for the pnp transistor.
+We can also see that $V_{BE}\approx V_{EB}\approx 0.7\hspace{1mm}V$. This value ($0.7\hspace{1mm}V$) is often used as an estimate of both $V_{BE}$ and $V_{EB}$,
+for theoretical analysis, as it simplifies the calculations. We too shall use this approximation in the next section.
+
+After this, we moved on to the frequency analysis. Before anything else, we decided to compute both the input and output impedances of the circuit used,
+as they are critical for understanding the behaviour of the circuit. The results obtained are shown in the tables below.
+
+\begin{table}[h]
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [$k\Omega$]} \\ \hline
+      \input{../sim/SimZi_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's input impedance.}
+  }
+  \hfill
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [$\Omega$]} \\ \hline
+      \input{../sim/SimZo_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's output impedance.}
+  }
+\end{table}
+
+In the first line of both tables, the impedance is presented in its complex form (first number refers to the real part, second refers to the imaginary part).
+The second line of both tables contains the impedances' absolute value.
+A good amplifier is one that has a high input impedance, so that the input signal isn't degredated, a low output impedance, which makes it so that
+the output signal, which is delivered to the load, isn't degredated as well, and a high gain. As we can see from the table above, the 
+output impedance of our simulated amplifier is indeed low. The input impedance however, although much greater than the output impedance, could still be higher.
+Nevertheless, we figured the results were good enough despite this fact, so we didn't bother trying to increase the input impedance any further.
+We would also like to point out that, in order to compute the output impedance, we had to utilize a different \emph{ngspice} script, in which we switched 
+off the input voltage source, $V_{S}$, in figure \ref{fig:circuito}, and connected a test voltage source to the output of the citcuit, instead of the load.
+The output impedance is then given by the quotient of this test voltage by the current flowing through the test voltage itself.
+
+Following the previous frequency analysis, we obtained the graph shown in figure \ref{fig:NgspiceGain_dB}, for the gain in dB.
+
+\clearpage
+
+\begin{figure}[h] \centering
+  \includegraphics[scale=0.7]{spice_gain_db.pdf}
+  \caption{Ngspice gain in dB.}
+  \label{fig:NgspiceGain_dB}
+\end{figure}
+
+Utilizing this graph, we were able to compute the maximum gain of the amplifier. The lower and upper cut-off frequencies, as well as the bandwidth
+of the amplifier, were calculated using the output signal.
+The values obtained are presented in the following tables.
+
+\begin{table}[h]
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [Hz]} \\ \hline
+      \input{../sim/SimFreqs_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's cut-off frequencies and bandwidth.}
+  }
+  \hfill
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [dB or -]} \\ \hline
+      \input{../sim/SimGain_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's gain.}
+  }
+\end{table}
+
+As we can see, the simulated amplifier has a lower cut-off frequency close to $20\hspace{1mm}Hz$, which is really good, provided that the human 
+ear cannot detect sounds below the $20\hspace{1mm}Hz$ mark. This also means that we are not wasting any part of the bandwidth, given that the upper cut-off
+frequency is way above the limit of $20\hspace{1mm}kHz$, which is the maximum frequency the human ear can detect. With that said, one can make the argument
+that we cannot hear sounds higher than $20\hspace{1mm}kHz$ and, as such, we really are wasting part of the bandwidth. However, it turned out the upper
+cut-off frequency was generally very high, much higher than $20\hspace{1mm}kHz$, regardless of the amplifier's specs. So, since there is not much we can do 
+about that, we instead focus on the minimization of the lower cut-off frequency.
+
+Lastly, we obtained a gain of 37.68241 dB (76.58091 in a linear scale), which seems high enough.
+
+Utilizing these results, we were able to compute the merit of our work, making use of the following formula.
+
+\begin{equation}
+  M=\dfrac{voltageGain\times bandwidth}{cost\times lowercutoffFreq}
+\end{equation}
+
+The result is presented in the table below, in which we also show the cost of our circuit.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [MU or -]} \\ \hline
+    \input{../sim/SimMerit_tab.tex}
+  \end{tabular}
+  \caption{Cost and merit using Ngspice's results.}
+  \label{tab:CostAndMerit}
+\end{table}
+
+The cost was computed using the following scheme.
+
+\begin{itemize}
+  \item Resistors $\rightarrow$ 1 MU per k$\Omega$;
+  \item Capacitors $\rightarrow$ 1 MU per $\mu$F;
+  \item Transistors $\rightarrow$ 0.1 MU per Transistor.
+\end{itemize}
+
+%\begin{figure}[h] \centering
+%  \includegraphics[scale=0.5]{}
+%  \caption{Voltages at the output of the envelope detetctor (blue) and voltage regulator circuits (red): detail in the interval [20, 60] ms.}
+%  \label{fig:33}
+%\end{figure}
+
+%\begin{figure}[h] \centering
+%  \includegraphics[scale=0.5]{}
+%  \caption{Output AC component (V(out)-12).}
+%  \label{fig:22}
+%\end{figure}
+
+%\begin{figure}[h] \centering
+%  \includegraphics[scale=0.8]{}
+%  \caption{Output AC component (V(out)-12): detail in the interval [20, 60] ms.}
+%  \label{fig:44}
+%\end{figure}
