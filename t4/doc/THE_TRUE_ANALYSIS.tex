@@ -87,6 +87,16 @@ These results are shown in table \ref{tab:op1_tab}.
 As we can see $V_{CE} > V_{BE}=V_{BE_{ON}}$, so we know that the transistor is in the forward active region.
 
 \subsubsection{Output stage}
+For the Output stage, the analysed circuit is shown in figure \ref{fig:Thevenin2}.
+
+\begin{figure}[H]
+  \begin{center}
+   \includegraphics[width=10cm]{lab4_DC2.pdf}
+  \caption{Output stage (DC analysis).}
+  \label{fig:Thevenin2}
+  \end{center}
+  \end{figure}
+
 We assume that $V_{EB}\approx 0.7V$.
 Applying KVL to all meshes and knowing that the voltage $V_{I}$ is equal to the output of the gain stage we get:
 \begin{equation}
@@ -124,10 +134,12 @@ We first studied the gain stage and the output stage independently.
 The resulting circuit can be simplified to:
 
 \begin{figure}[h] \centering
-    \includegraphics[scale=0.7]{lab4_AC1.pdf}
+    \includegraphics[width=17cm]{lab4_AC1.pdf}
     \caption{Gain stage AC analysis - incremental circuit.}
     \label{fig:AC1 analysis}
 \end{figure}
+
+\clearpage
 
 As we derived in the theotherical classes we have that:
 
@@ -148,6 +160,7 @@ For the input and output impendances we have:
     \end{cases}
 \end{equation}
 
+The results are presented in table \ref{tab:stage1_tab}.
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|r|}
@@ -155,13 +168,12 @@ For the input and output impendances we have:
       {\bf Name} & {\bf Value [- or $\Omega$]} \\ \hline
       \input{../mat/Stage1_tab.tex}
     \end{tabular}
-    \caption{Gains and impedances.}
+    \caption{Gain and impedances.}
     \label{tab:stage1_tab}
   \end{table}
 
 \subsubsection{Output stage}
-Relative to the output stage we got:
-
+The resulting circuit can be simplified to:
 
 \begin{figure}[H]
     \begin{center}
@@ -171,7 +183,7 @@ Relative to the output stage we got:
     \end{center}
   \end{figure}
 
-
+Relative to the output stage we got:
 \begin{equation}
     \dfrac{v_{0}}{v_{i}}=\dfrac{g_{m}}{g_{\pi }+g_{E}+g_{o}+g_{m}}
 \end{equation}
@@ -182,6 +194,9 @@ Relative to the output stage we got:
     Z_{o}=\dfrac{1}{g_{\pi }+g_{E}+g_{o}+g_{m}}
 \end{equation}
 
+\clearpage
+
+The results are presented in table \ref{tab:stage2_tab}.
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|r|}
@@ -189,22 +204,23 @@ Relative to the output stage we got:
       {\bf Name} & {\bf Value [- or $\Omega$]} \\ \hline
       \input{../mat/Stage2_tab.tex}
     \end{tabular}
-    \caption{Current through collector and the voltage drop between emitter and collector.}
+    \caption{Gain and impedances.}
     \label{tab:stage2_tab}
 \end{table}
 
-As we can see the gain stage output impendance and the output stage input impendance are quite compatible
+As we can see the gain stage output impedance and the output stage input impedance are quite compatible
 and that garantees that they can be connected without significant signal loss.
 
 \subsection{Frequency response}
+
+Now we will calculate the frequency response $\dfrac{V_{o}(f)}{V_{I}(f)}$. For this, we need the total incremental circuit, as shown below:
 
 \begin{figure}[H] \centering
     \includegraphics[scale=0.55]{lab4_AC_Total.pdf}
     \caption{Complete circuit.}
     \label{fig:CompleteCircuit}
 \end{figure}
-
-Now we will calculate the frequency response $\dfrac{V_{o}(f)}{V_{I}(f)}$. 
+ 
 The gain was only calculated for medium frequencies, so we end up considering the frequency response as a 
 constant value (equivalent to saying that the cut off frequencies are 0 and $\infty$). The gain was calculated using the following expression:
 
@@ -225,5 +241,5 @@ where $A_{v1}$ is the gained obtained for the gain stage.
 
 As one may notice, there are a few differences when comparing \textit{Ngspice}'s and \textit{Octave}'s results.
 But this is somewhat normal since the models used in the theoretical analysis are approximations of non linear components that are the transistors.
-Moreover, the Hybrid $\Pi$ model used was not the full one, so we did not take into account the Early Effect and Miller effect
+Moreover, the Hybrid $\Pi$ model used was not the full one, so we did not take into account the Miller effect and complete Early Effect
 that occurs in this type of network. Despite this, the results are quite satisfactory.
