@@ -14,28 +14,36 @@ The circuit designed has two distinct parts: the gain stage and the output stage
     \label{fig:circuito}
 \end{figure}
 
-The input ($V_{s}$) is a sinusoidal signal with a maximum amplitude of 10mV with an internal impendance of 100 $\Omega$, represented by $R_{in}$.
+The input ($V_{s}$) is a sinusoidal signal with a maximum amplitude of 10mV with an internal impedance of 100 $\Omega$, represented by $R_{in}$.
 On the other end of the circuit we can find an 8 $\Omega$ speaker. Additionally, the circuit is supplied
 by a 12V DC source, $V_{cc}$, that garantees that the transistor operates in its forward-active region (Base Biasing).
 
 The gain stage mentioned, which is connected to the input signal, is formed by a single stage common-emitter amplifier
-with degeneration that uses a NPN transistor. Furthermore, there is a bias circuit and a bypass capacitor which
-functions will be discussed later in the report.
+with degeneration that uses a NPN transistor. Furthermore, there is a bias circuit and a bypass capacitor whose
+functions will be discussed soon.
 Moving on to the output stage, it was used a common collector amplifier but this time a PNP transistor was used.
-This stage is basically responsible for lowering the output impendace that comes from the previous stage,
+This stage is basically responsible for lowering the output impedance that comes from the previous stage,
 so that the values are appropriate for the speaker.
 
-Now we will talk about the goal of the coupling capacitors ($C_{1}$ and $C_{2}$), bypass capacitors ($C_{3}$) and the effect of the resistance $R_{C}$.
+Now we will talk about the goal of the coupling capacitors ($C_{1}$ and $C_{2}$), the bypass capacitor ($C_{E}$) and the effect of the resistance $R_{C}$.
+
+Starting with $C_{1}$ and $C_{2}$, these capacitors, as well as the bias circuit, allow the transistor to operate in the forward active region. 
+These capacitors block the DC component (0 V) of the source, since this DC value isn't enough to bias the transistors.
+At low frequencies the impedance of coupling capacitor $C_{2}$ is relatively high and hence very small part of the signal will pass from the
+amplifier stage to the load.
+It is this type of changing behaviour with the frequency that explains the influence of these kind of capacitors in the cut off frequencies and, 
+therefore, the bandwidth.
+
+The bypass capacitor, $C_{E}$, blocks the DC component of the signal, where temperature stability is most important. However, in AC,
+gain is most important, and this capacitor behaves like a short circuit for medium to high frequencies,
+"removing" $R_{E}$ and consequently increasing the gain. 
+
+The resistance $R_{C}$ is also important. Current $I_{C}$ influences $g_{m}$, a parameter from the transistor incremental model,
+which directly influences the gain, increasing it. This way, a high $R_{C}$ is important for high gain. However, this also 
+makes the output impedance high, which can make this higher gain a total waste. We need to balance the value of $R_{C}$ having this in mind.  
 
 
-Starting with the $C_{1}$ and $C_{2}$, they are low impendance coupling capacitors and DC blocking capacitors whose reactance at the signal frequency is designed to be negligible.
-The AC coupling through capacitors is used to inject AC input signal and extract output signal without disturbing the Q-point (steady-state voltage or current at a specified terminal of an active device with no input signal applied.)
-For this reason they have a direct impact on the lower and upper 3dB cut off frequencies and therefore the bandwidth of the network.
-
-$C_{3}$ is a bypass capacitor that provides a low impendace path for the AC current from emitter to ground,
-thereby removing $R_{E}$ (required for good Q-point stability) from the circuit when AC signals are considered which garantees that the resistor will not affect the gain.
-
-In Section~\ref{sec:analysis}, a theoretical analysis of the circuit is performed, followed by an simulation in \ref{sec:simulation}
+In Section~\ref{sec:simulation}, a theoretical analysis of the circuit is performed, followed by an simulation in \ref{sec:analysis}.
 with the goal of comparing and understand better the behaviour of this circuit.
 
 %\begin{figure}[h] \centering
