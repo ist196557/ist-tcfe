@@ -51,39 +51,44 @@
 
 Vcc vcc 0 5.0
 Vee vee 0 -5.0
-Vin in 0 0 ac 1.0 sin(0 10m 1k)
+Vin in 0 0 ac 0 sin(0 10m 1k)
 
-X1 0 inv_in vcc vee out uA741
+X1 non_inv inv vcc vee OPout uA741
 
-R1 in inv_in 1000
-R2 inv_in out 10000
+C1 in non_inv 220n
+R1 non_inv 0 1k
 
-* load
-RL out 0 8
+R4 OPout inv 200k
+R3 inv 0 1k
+
+R2 OPout out 1k
+C2 out 0 220n
+
+* test output voltage source (for computing output impedance)
+VO out 0 0 ac 1.0 sin(0 10m 1k)
 
 .op
 .end
 
 .control
 
-print all
-
-* time analysis
-tran 1e-5 1e-2
-plot v(out)
-hardcopy vo1.ps vdb(out)
-
+* makes plots in color
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=rgb:1/8/2
 
 * frequency analysis
 ac dec 10 10 100MEG
-plot vdb(out)
-plot vp(out)
-hardcopy vo1f.ps vdb(out)
+plot vo#branch
 
-*input impedance in kohm
-print v(in)[40]/R1[i]/1000
-
-*need a different setup to measure output impedance
+* output impedance at central frequency in ohm
+echo Output impedance at central frequency in ohm:
+let fc = 6.980045e+02 
+let Zo = 1/(-vo#branch)
+let AbsZo = abs(1/(-vo#branch))
+meas ac AbsZoAtFc find AbsZo at=fc
+echo
 
 .endc 
 

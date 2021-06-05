@@ -1,0 +1,192 @@
+*-----------------------------------------------------------------------------
+*
+* To use a subcircuit, the name must begin with 'X'.  For example:
+* X1 1 2 3 4 5 uA741
+*
+* connections:   non-inverting input
+*                |  inverting input
+*                |  |  positive power supply
+*                |  |  |  negative power supply
+*                |  |  |  |  output
+*                |  |  |  |  |
+.subckt uA741    1  2  3  4  5
+*
+  c1   11 12 8.661E-12
+  c2    6  7 30.00E-12
+  dc    5 53 dx
+  de   54  5 dx
+  dlp  90 91 dx
+  dln  92 90 dx
+  dp    4  3 dx
+  egnd 99  0 poly(2) (3,0) (4,0) 0 .5 .5
+  fb    7 99 poly(5) vb vc ve vlp vln 0 10.61E6 -10E6 10E6 10E6 -10E6
+  ga    6  0 11 12 188.5E-6
+  gcm   0  6 10 99 5.961E-9
+  iee  10  4 dc 15.16E-6
+  hlim 90  0 vlim 1K
+  q1   11  2 13 qx
+  q2   12  1 14 qx
+  r2    6  9 100.0E3
+  rc1   3 11 5.305E3
+  rc2   3 12 5.305E3
+  re1  13 10 1.836E3
+  re2  14 10 1.836E3
+  ree  10 99 13.19E6
+  ro1   8  5 50
+  ro2   7 99 100
+  rp    3  4 18.16E3
+  vb    9  0 dc 0
+  vc    3 53 dc 1
+  ve   54  4 dc 1
+  vlim  7  8 dc 0
+  vlp  91  0 dc 40
+  vln   0 92 dc 40
+.model dx D(Is=800.0E-18 Rs=1)
+.model qx NPN(Is=800.0E-18 Bf=93.75)
+.ends
+
+
+
+.options savecurrents
+
+Vcc vcc 0 5.0
+Vee vee 0 -5.0
+Vin in 0 0 ac 1.0 sin(0 10m 1k)
+
+X1 non_inv inv vcc vee OPout uA741
+
+C1 in non_inv 220n
+R1 non_inv 0 1k
+
+R4 OPout inv 200k
+R3 inv 0 1k
+
+R2 OPout out 1k
+C2 out 0 220n
+
+* load
+* RL out 0 8
+
+.op
+.end
+
+.control
+
+print all
+
+* makes plots in color
+set hcopypscolor=1
+set color0=white
+set color1=black
+set color2=rgb:1/8/2
+
+* time analysis
+tran 1e-5 1e-2
+plot v(out)
+* hardcopy vo1_testing2.ps v(out)
+
+* frequency analysis
+ac dec 1000 10 100MEG
+plot vdb(out)-vdb(in)
+plot vp(out)-vp(in)
+hardcopy sim_gain_db.ps vdb(out)-vdb(in)
+echo sim_gain_db_FIG
+
+hardcopy sim_phase.ps vp(out)-vp(in)
+echo sim_phase_FIG
+echo
+
+* need a different setup to measure output impedance
+
+* bandwidth computation
+let vdbVals = vdb(out)-vdb(in)
+echo vdbVals maximum value: (used for computing cut-off frequencies)
+meas	ac	vdboutmax	max		vdbVals	from=10	to=100MEG
+echo
+let vdboutmaxMinus3=vdboutmax-3
+
+* lower cut-off frequency
+echo Lower cut-off frequency:
+meas ac lowercutoff when vdb(out)=vdboutmaxMinus3 rise=1
+echo 
+
+* upper cut-off frequency
+echo Upper cut-off frequency:
+meas ac uppercutoff when vdb(out)=vdboutmaxMinus3 fall=last
+echo 
+
+* central frequency
+echo Central frequency:
+let fc = sqrt(lowercutoff*uppercutoff)
+print fc
+echo
+
+* input impedance at central frequency in ohm
+echo Input impedance at central frequency in ohm:
+let Zin = v(in)/vin#branch/(-1)
+let AbsZin = abs(Zin)
+meas ac AbsZinAtFc find AbsZin at=fc
+echo 
+
+* bandwidth
+echo Bandwidth:
+let Bandwidth = uppercutoff - lowercutoff
+print Bandwidth
+echo
+
+* cost: OP-AMP + rest
+echo Cost:
+let Cost = 13323.29004 + 203.44
+print Cost
+echo
+
+* gain deviation
+echo Gain deviation:
+let GainDeviation = 100 - 10^(vdboutmax/20)
+print GainDeviation
+echo
+
+* central frequency deviation
+echo Central frequency deviation:   
+let CentralFreqDeviation = 1000 - fc
+print CentralFreqDeviation
+echo
+
+* merit 
+echo Merit:
+let Merit = abs(1/(Cost * GainDeviation * CentralFreqDeviation))
+print Merit
+echo
+
+echo "SimZ_TAB"
+print AbsZinAtFc
+echo abszoatfc = 7.235581e+02
+echo "SimZ_END"
+
+echo
+
+echo "SimMerit_TAB"
+print Cost
+print Merit
+echo "SimMerit_END"
+
+echo
+
+echo "SimGain_TAB"
+print vdboutmax
+print 10^(vdboutmax/20)
+echo "SimGain_END"
+
+echo
+
+echo "SimFreqs_TAB"
+print lowercutoff
+print uppercutoff
+print Bandwidth
+print fc
+echo "SimFreqs_END"
+
+echo
+
+.endc 
+
