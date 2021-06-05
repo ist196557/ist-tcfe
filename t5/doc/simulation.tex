@@ -2,41 +2,113 @@
 
 \section{Simulation Analysis}
 \label{sec:simulation}
+\vspace{-0.5cm}
+In this section we shall describe the simulation of the circuit presented in figure \ref{}. This circuit was translated into \emph{ngspice}
+source code and simulated as follows.
+Firstly, we did transient analysis in order to study the output of the circuit and so we could check whether or
+not it had any visible distortion. Having confirmed the abscence of said distortion, we proceeded to the frequency analysis,
+the main focus of this lab assignment.
+As such, before anything else, we decided to compute both the input and output impedances of the circuit used, as they are critical for
+understanding the behaviour of the circuit. The results obtained are shown in the tables below.
 
-In this section we shall describe the simulation of the circuit presented in figure \ref{}.
+\vspace{-0.65cm}
+\begin{table}[h]\label{tab:SimZ}
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [$\Omega$]} \\ \hline
+      \input{../sim/SimZ_tab.tex}
+    \end{tabular}
+    \vspace{-2.5mm}
+    \caption{Ngspice's input and output impedances' absolute values.}
+\end{table}
 
-%\begin{table}[h]
-%  \parbox{.45\linewidth}{
-%    \centering
-%    \begin{tabular}{|c|c|}
-%      \hline
-%      {\bf Name} & {\bf Value [$k\Omega$]} \\ \hline
-%      \input{../sim/SimZi_tab.tex}
-%    \end{tabular}
-%    \caption{Ngspice's input impedance.}
-%  }
-%  \hfill
-%  \parbox{.45\linewidth}{
-%    \centering
-%    \begin{tabular}{|c|c|}
-%      \hline
-%      {\bf Name} & {\bf Value [$\Omega$]} \\ \hline
-%      \input{../sim/SimZo_tab.tex}
-%    \end{tabular}
-%    \caption{Ngspice's output impedance.}
-%  }
-%\end{table}
+\vspace{-0.45cm}
+The first and second lines of the table contain, respectively, the input and output impedances' absolute values.
+Generally, when designing a circuit such as this one, we want it to have a high input impedance,
+so that the input signal isn’t degredated, and a low output impedance, which makes it so that the
+output signal, which is delivered to the load, isn’t degredated as well. As we
+can see from the table above, the values obtained are far from ideal. The input impedance is far from infinite and the output impedance is also
+distant from zero. Nevertheless, we figured the results were good enough despite this fact, so we didn't bother trying to increase the input
+impedance nor decrease the output impedance any further. However, this is a fact that still needs to be kept in mind if we inted to connect this circuit
+to other circuits. We would also like to point out that, in order to compute the output impedance, we had to utilize a different \emph{ngspice} 
+script, in which we switched off the input voltage source, $v_{I}$ , in figure \ref{}, and connected a test voltage source to
+the output of the citcuit. The output impedance is then given by the quotient
+of this test voltage by the current flowing through the test voltage itself.
+Following the previous frequency analysis, we obtained the graph shown in figure \ref{fig:NgspiceGain_dB}, for the
+gain in dB, and the graph shown in figure \ref{fig:NgspicePhase}, for the phase of the gain.
 
-%\begin{figure}[h] \centering
-%  \includegraphics[scale=0.7]{spice_gain_db.pdf}
-%  \caption{Ngspice gain in dB.}
-%  \label{fig:NgspiceGain_dB}
-%\end{figure}
+\vspace{-0.25cm}
+\begin{figure}[h] \centering
+  \includegraphics[scale=0.5425]{sim_gain_db.pdf}
+  \caption{Ngspice gain in dB.}
+  \label{fig:NgspiceGain_dB}
+\end{figure}
+
+\begin{figure}[h] \centering
+  \includegraphics[scale=0.5425]{sim_phase.pdf}
+  \caption{Ngspice gain's phase.}
+  \label{fig:NgspicePhase}
+\end{figure}
+
+Utilizing the graph shown in figure \ref{fig:NgspiceGain_dB}, we were able to compute the maximum gain of the circuit, the lower
+and upper cut-off frequencies, as well as the bandwidth of the filter circuit and its central frequency, defined as
+the geometric mean of the lower and upper cut-off frequencies. The values obtained are presented in the following tables.
+
+\begin{table}[h]
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [Hz]} \\ \hline
+      \input{../sim/SimFreqs_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's cut-off frequencies, bandwidth and central frequency.}
+  }
+  \hfill
+  \parbox{.45\linewidth}{
+    \centering
+    \begin{tabular}{|c|c|}
+      \hline
+      {\bf Name} & {\bf Value [dB or -]} \\ \hline
+      \input{../sim/SimGain_tab.tex}
+    \end{tabular}
+    \caption{Ngspice's gain in dB and linear gain.}
+  }
+\end{table}
+
+In designing this filter circuit we didn't really worry about its bandwidth as it wasn't necessary for what we wanted to achieve. Instead, we focused
+on its gain, as well as its central frequency. We managed to achieve a gain which was really close to 40 dB, as was intended. The central frequency, however,
+is relatively far away from the intended 1 kHz. Given the restrictions imposed by the professor in terms of available components, we had some 
+trouble getting both the gain and central frequency to match the intended values. As such we decided to prioritize the gain of the filter
+circuit and in doing such ended up sacrificing the central frequency. In hindsight, we realized this wasn't the most ideal, as our circuit was supposed
+to be a filter circuit, which means we should have focused on its central frequency instead.
+
+Anyways, moving on, utilizing these results we were able to compute the merit of our work, making use of the following formula.
+
+\begin{equation}
+M = \frac{1}{\text{Cost}\times \left(\text{voltage gain deviation} + \text{central frequency deviation} + 10^{-6}\right)}
+\end{equation}
+\clearpage
+
+The result is presented in the table below, in which we also show the cost of our circuit.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|r|}
+    \hline
+    {\bf Name} & {\bf Value [MU or -]} \\ \hline
+    \input{../sim/SimMerit_tab.tex}
+  \end{tabular}
+  \caption{Cost and merit using Ngspice's results.}
+  \label{tab:CostAndMerit}
+\end{table}
 
 The cost was computed using the following scheme.
 
 \begin{itemize}
   \item Resistors $\rightarrow$ 1 MU per k$\Omega$;
   \item Capacitors $\rightarrow$ 1 MU per $\mu$F;
-  \item Transistors $\rightarrow$ 0.1 MU per Transistor.
+  \item Transistors $\rightarrow$ 0.1 MU per Transistor;
+  \item Diode $\rightarrow$ 0.1 MU per Diode (used in OP-AMP).
 \end{itemize}

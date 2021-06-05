@@ -101,18 +101,18 @@ echo
 * bandwidth computation
 let vdbVals = vdb(out)-vdb(in)
 echo vdbVals maximum value: (used for computing cut-off frequencies)
-meas	ac	vdboutmax	max		vdbVals	from=10	to=100MEG
+meas	ac	gaindb	max		vdbVals	from=10	to=100MEG
 echo
-let vdboutmaxMinus3=vdboutmax-3
+let gaindbMinus3=gaindb-3
 
 * lower cut-off frequency
 echo Lower cut-off frequency:
-meas ac lowercutoff when vdb(out)=vdboutmaxMinus3 rise=1
+meas ac lowercutoff when vdb(out)=gaindbMinus3 rise=1
 echo 
 
 * upper cut-off frequency
 echo Upper cut-off frequency:
-meas ac uppercutoff when vdb(out)=vdboutmaxMinus3 fall=last
+meas ac uppercutoff when vdb(out)=gaindbMinus3 fall=last
 echo 
 
 * central frequency
@@ -142,7 +142,7 @@ echo
 
 * gain deviation
 echo Gain deviation:
-let GainDeviation = 100 - 10^(vdboutmax/20)
+let GainDeviation = 100 - 10^(gaindb/20)
 print GainDeviation
 echo
 
@@ -154,7 +154,7 @@ echo
 
 * merit 
 echo Merit:
-let Merit = abs(1/(Cost * GainDeviation * CentralFreqDeviation))
+let Merit = abs(1/(Cost * (GainDeviation + CentralFreqDeviation + 1e-6)))
 print Merit
 echo
 
@@ -173,8 +173,9 @@ echo "SimMerit_END"
 echo
 
 echo "SimGain_TAB"
-print vdboutmax
-print 10^(vdboutmax/20)
+let LinearGain = 10^(gaindb/20)
+print gaindb
+print LinearGain
 echo "SimGain_END"
 
 echo
@@ -182,7 +183,7 @@ echo
 echo "SimFreqs_TAB"
 print lowercutoff
 print uppercutoff
-print Bandwidth
+* print Bandwidth
 print fc
 echo "SimFreqs_END"
 
