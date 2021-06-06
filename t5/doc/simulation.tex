@@ -3,13 +3,14 @@
 \section{Simulation Analysis}
 \label{sec:simulation}
 \vspace{-0.5cm}
-In this section we shall describe the simulation of the circuit presented in figure \ref{}. This circuit was translated into \emph{ngspice}
+In this section we shall describe the simulation of the circuit presented in figure \ref{fig:Principal}. This circuit was translated into \emph{ngspice}
 source code and simulated as follows.
 Firstly, we did transient analysis in order to study the output of the circuit and so we could check whether or
 not it had any visible distortion. Having confirmed the abscence of said distortion, we proceeded to the frequency analysis,
 the main focus of this lab assignment.
-As such, before anything else, we decided to compute both the input and output impedances of the circuit used, as they are critical for
-understanding the behaviour of the circuit. The results obtained are shown in the tables below.
+As such, we decided to compute both the input and output impedances of the circuit used, as they are critical for
+understanding the behaviour of the circuit. The results obtained are shown in the table below. Keep in mind that these values were calculated
+at the central frequency, which we shall present later in the analysis.
 
 \vspace{-0.65cm}
 \begin{table}[h]\label{tab:SimZ}
@@ -20,7 +21,7 @@ understanding the behaviour of the circuit. The results obtained are shown in th
       \input{../sim/SimZ_tab.tex}
     \end{tabular}
     \vspace{-2.5mm}
-    \caption{Ngspice's input and output impedances' absolute values.}
+    \caption{\emph{Ngspice}'s input and output impedances' absolute values.}
 \end{table}
 
 \vspace{-0.45cm}
@@ -32,7 +33,7 @@ can see from the table above, the values obtained are far from ideal. The input 
 distant from zero. Nevertheless, we figured the results were good enough despite this fact, so we didn't bother trying to increase the input
 impedance nor decrease the output impedance any further. However, this is a fact that still needs to be kept in mind if we inted to connect this circuit
 to other circuits. We would also like to point out that, in order to compute the output impedance, we had to utilize a different \emph{ngspice} 
-script, in which we switched off the input voltage source, $v_{I}$ , in figure \ref{}, and connected a test voltage source to
+script, in which we switched off the input voltage source, $V_{in}$ , in figure \ref{fig:Principal}, and connected a test voltage source to
 the output of the citcuit. The output impedance is then given by the quotient
 of this test voltage by the current flowing through the test voltage itself.
 Following the previous frequency analysis, we obtained the graph shown in figure \ref{fig:NgspiceGain_dB}, for the
@@ -40,19 +41,19 @@ gain in dB, and the graph shown in figure \ref{fig:NgspicePhase}, for the phase 
 
 \vspace{-0.25cm}
 \begin{figure}[h] \centering
-  \includegraphics[scale=0.5425]{sim_gain_db.pdf}
-  \caption{Ngspice gain in dB.}
+  \includegraphics[scale=0.515]{sim_gain_db.pdf}
+  \caption{\emph{Ngspice} gain in dB.}
   \label{fig:NgspiceGain_dB}
 \end{figure}
 
 \begin{figure}[h] \centering
-  \includegraphics[scale=0.5425]{sim_phase.pdf}
-  \caption{Ngspice gain's phase.}
+  \includegraphics[scale=0.515]{sim_phase.pdf}
+  \caption{\emph{Ngspice} gain's phase.}
   \label{fig:NgspicePhase}
 \end{figure}
 
 Utilizing the graph shown in figure \ref{fig:NgspiceGain_dB}, we were able to compute the maximum gain of the circuit, the lower
-and upper cut-off frequencies, as well as the bandwidth of the filter circuit and its central frequency, defined as
+and upper cut-off frequencies, as well as the central frequency, defined as
 the geometric mean of the lower and upper cut-off frequencies. The values obtained are presented in the following tables.
 
 \begin{table}[h]
@@ -63,7 +64,7 @@ the geometric mean of the lower and upper cut-off frequencies. The values obtain
       {\bf Name} & {\bf Value [Hz]} \\ \hline
       \input{../sim/SimFreqs_tab.tex}
     \end{tabular}
-    \caption{Ngspice's cut-off frequencies, bandwidth and central frequency.}
+    \caption{\emph{Ngspice}'s cut-off frequencies and central frequency.}
   }
   \hfill
   \parbox{.45\linewidth}{
@@ -73,7 +74,7 @@ the geometric mean of the lower and upper cut-off frequencies. The values obtain
       {\bf Name} & {\bf Value [dB or -]} \\ \hline
       \input{../sim/SimGain_tab.tex}
     \end{tabular}
-    \caption{Ngspice's gain in dB and linear gain.}
+    \caption{\emph{Ngspice}'s gain in dB and linear gain.}
   }
 \end{table}
 
@@ -84,12 +85,13 @@ trouble getting both the gain and central frequency to match the intended values
 circuit and in doing such ended up sacrificing the central frequency. In hindsight, we realized this wasn't the most ideal, as our circuit was supposed
 to be a filter circuit, which means we should have focused on its central frequency instead.
 
+\clearpage
+
 Anyways, moving on, utilizing these results we were able to compute the merit of our work, making use of the following formula.
 
 \begin{equation}
 M = \frac{1}{\text{Cost}\times \left(\text{voltage gain deviation} + \text{central frequency deviation} + 10^{-6}\right)}
 \end{equation}
-\clearpage
 
 The result is presented in the table below, in which we also show the cost of our circuit.
 
@@ -100,7 +102,7 @@ The result is presented in the table below, in which we also show the cost of ou
     {\bf Name} & {\bf Value [MU or -]} \\ \hline
     \input{../sim/SimMerit_tab.tex}
   \end{tabular}
-  \caption{Cost and merit using Ngspice's results.}
+  \caption{Cost and merit using \emph{Ngspice}'s results.}
   \label{tab:CostAndMerit}
 \end{table}
 
